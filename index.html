@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiedersehen: Rabsi & Finn</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 90%;
+        }
+
+        h1 {
+            color: #ad1457;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .heart {
+            color: #e91e63;
+            font-size: 2.5rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        #countdown {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .segment {
+            background: #fff;
+            padding: 15px;
+            border-radius: 20px;
+            min-width: 100px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .number {
+            display: block;
+            font-size: 3.5rem;
+            font-weight: 800;
+            /* Hier ist der Farbverlauf in der Zahl */
+            background: linear-gradient(to bottom, #ec407a, #ad1457);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .label {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
+        
+        <div id="countdown">
+            <div class="segment"><span class="number" id="days">00</span><span class="label">Tage</span></div>
+            <div class="segment"><span class="number" id="hours">00</span><span class="label">Stunden</span></div>
+            <div class="segment"><span class="number" id="mins">00</span><span class="label">Minuten</span></div>
+            <div class="segment"><span class="number" id="secs">00</span><span class="label">Sekunden</span></div>
+        </div>
+    </div>
+
+    <script>
+        const target = new Date('March 28, 2026 17:00:00').getTime();
+
+        function update() {
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.querySelector('.container').innerHTML = "<h1>Endlich zusammen! ❤️</h1>";
+                return;
+            }
+
+            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
