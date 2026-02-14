@@ -13,6 +13,9 @@
             --label-color: #888;
             --separator-color: #f8bbd0;
             --shadow: rgba(0,0,0,0.1);
+            --valentine-button-bg: #e91e63;
+            --valentine-button-text: white;
+            --valentine-text-color: #ad1457;
         }
 
         [data-theme="dark"] {
@@ -23,6 +26,9 @@
             --label-color: #bbb;
             --separator-color: #4a4a4a;
             --shadow: rgba(0,0,0,0.5);
+            --valentine-button-bg: #d32f2f;
+            --valentine-button-text: white;
+            --valentine-text-color: #f06292;
         }
 
         body {
@@ -38,7 +44,6 @@
             position: relative;
         }
 
-        /* Echte Sterne Animation */
         .star {
             position: absolute;
             top: -50px;
@@ -161,11 +166,53 @@
 
         #theme-toggle:active { transform: scale(0.9); }
 
+        /* Valentinstags-Button */
+        #valentine-button {
+            background: var(--valentine-button-bg);
+            color: var(--valentine-button-text);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        #valentine-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Valentinstags-Text */
+        #valentine-text {
+            margin-top: 30px;
+            font-size: 1.3rem;
+            color: var(--valentine-text-color);
+            font-style: italic;
+            line-height: 1.6;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.8s ease-out, max-height 0.8s ease-out;
+        }
+
+        #valentine-text.show {
+            opacity: 1;
+            max-height: 500px; /* Genug Platz für den Text */
+        }
+
         @media (max-width: 768px) {
             .countdown-wrapper { gap: 10px; }
             .number { font-size: 2.2rem; }
             .separator { font-size: 1.5rem; margin-top: -15px; }
             h1 { font-size: 1.3rem; }
+            .weeks-display { font-size: 0.9rem; }
+            #valentine-button { padding: 12px 25px; font-size: 1rem; }
+            #valentine-text { font-size: 1rem; }
         }
     </style>
 </head>
@@ -189,13 +236,22 @@
         <div class="weeks-display">
             Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
         </div>
+
+        <button id="valentine-button">❤️ Drück mich für eine Valentins-Nachricht! ❤️</button>
+        
+        <div id="valentine-text">
+            Mein liebster Finn,<br><br>
+            Jeder Tag, der uns näher zu unserem Wiedersehen bringt, ist ein Geschenk. Du bist mein Anker, mein Lachen, mein Zuhause. Ich vermisse dich unendlich und zähle jede Sekunde bis wir wieder zusammen sind. Du bist mein Valentinswunsch, heute und für immer.<br><br>
+            In ewiger Liebe,<br>
+            Deine Rabsi
+        </div>
     </div>
 
     <script>
         // Sternen-Generator
         function createStar() {
             const star = document.createElement('div');
-            star.innerHTML = '★'; // Richtiges Stern-Symbol
+            star.innerHTML = '★';
             star.className = 'star';
             
             const size = Math.random() * 20 + 10 + 'px';
@@ -205,16 +261,11 @@
             const duration = Math.random() * 3 + 4 + 's';
             star.style.animationDuration = duration;
             
-            // Zufällige Transparenz für Tiefe
             star.style.opacity = Math.random() * 0.7 + 0.2;
             
             document.body.appendChild(star);
-
-            // Stern löschen, wenn er unten angekommen ist
             setTimeout(() => { star.remove(); }, 7000);
         }
-
-        // Alle 300ms einen neuen Stern erzeugen
         setInterval(createStar, 300);
 
         // Countdown Logik
@@ -247,6 +298,19 @@
         toggleBtn.addEventListener('click', () => {
             const current = document.body.getAttribute('data-theme');
             document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        });
+
+        // Valentinstags-Button Logik
+        const valentineButton = document.getElementById('valentine-button');
+        const valentineText = document.getElementById('valentine-text');
+
+        valentineButton.addEventListener('click', () => {
+            valentineText.classList.toggle('show');
+            if (valentineText.classList.contains('show')) {
+                valentineButton.innerText = "❤️ Nachricht schließen ❤️";
+            } else {
+                valentineButton.innerText = "❤️ Drück mich für eine Valentins-Nachricht! ❤️";
+            }
         });
 
         setInterval(updateCountdown, 1000);
