@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
-            --container-bg: rgba(255, 255, 255, 0.95);
+            --container-bg: rgba(255, 255, 255, 0.9);
             --text-main: #ad1457;
             --text-secondary: #4a4a4a;
             --label-color: #999;
@@ -15,10 +15,9 @@
             --shadow: rgba(0,0,0,0.1);
         }
 
-        /* Dark Mode Farben */
         [data-theme="dark"] {
             --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d1a24 100%);
-            --container-bg: rgba(40, 40, 40, 0.95);
+            --container-bg: rgba(30, 30, 30, 0.9);
             --text-main: #f06292;
             --text-secondary: #e0e0e0;
             --label-color: #bbb;
@@ -34,7 +33,24 @@
             min-height: 100vh;
             background: var(--bg-gradient);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            transition: background 0.3s ease;
+            transition: background 0.5s ease;
+            overflow: hidden; /* Verhindert Scrollbalken durch Sterne */
+            position: relative;
+        }
+
+        /* Sternen-Animation */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-10vh) translateX(0); }
+            to { transform: translateY(110vh) translateX(50px); }
         }
 
         .container {
@@ -43,8 +59,10 @@
             border-radius: 40px;
             box-shadow: 0 20px 50px var(--shadow);
             width: 90%;
-            max-width: 900px;
+            max-width: 850px;
             text-align: center;
+            backdrop-filter: blur(10px); /* Glas-Effekt */
+            z-index: 10;
             transition: all 0.3s ease;
         }
 
@@ -119,12 +137,11 @@
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--separator-color);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-main);
             font-weight: 300;
         }
 
-        /* Dark Mode Button */
         #theme-toggle {
             position: fixed;
             top: 20px;
@@ -140,10 +157,11 @@
         }
 
         @media (max-width: 768px) {
-            .countdown-wrapper { gap: 8px; }
-            .number { font-size: 2rem; }
-            .separator { font-size: 1.2rem; margin-top: -15px; }
-            h1 { font-size: 1.3rem; }
+            .countdown-wrapper { gap: 10px; }
+            .number { font-size: 2.2rem; }
+            .separator { font-size: 1.5rem; margin-top: -15px; }
+            h1 { font-size: 1.4rem; }
+            .weeks-display { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -182,6 +200,23 @@
     </div>
 
     <script>
+        // Sternen-Erzeugung
+        function createStars() {
+            const starCount = 100;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1 + 'px';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDuration = Math.random() * 3 + 2 + 's';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
         // Countdown Logik
         const targetDate = new Date('March 28, 2026 17:00:00').getTime();
 
@@ -207,20 +242,12 @@
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
         }
 
-        // Theme Toggle Logik
+        // Theme Toggle
         const toggleBtn = document.getElementById('theme-toggle');
-        const body = document.body;
-
         toggleBtn.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            body.setAttribute('data-theme', newTheme);
+            const current = document.body.getAttribute('data-theme');
+            document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
         });
-
-        // Automatische Erkennung des System-Designs
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            body.setAttribute('data-theme', 'dark');
-        }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
