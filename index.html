@@ -15,49 +15,44 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             text-align: center;
             color: #4a4a4a;
-            overflow: hidden;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 2rem;
+            padding: 3.5rem 2rem;
             border-radius: 40px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             width: 90%;
-            max-width: 1000px;
+            max-width: 900px;
         }
 
         h1 {
             color: #ad1457;
-            font-size: 2.2rem;
-            margin-bottom: 3rem;
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
             font-weight: 400;
         }
 
-        /* Pulsierendes Herz */
         .heart {
             display: inline-block;
             color: #e91e63;
             animation: heartbeat 1.5s ease-in-out infinite;
-            font-size: 2.8rem;
-            margin-left: 10px;
+            font-size: 2.5rem;
             vertical-align: middle;
         }
 
         @keyframes heartbeat {
-            0% { transform: scale(1); }
+            0%, 30%, 60% { transform: scale(1); }
             15% { transform: scale(1.2); }
-            30% { transform: scale(1); }
             45% { transform: scale(1.1); }
-            60% { transform: scale(1); }
         }
 
-        /* Countdown Bereich */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 25px;
+            margin-bottom: 20px;
         }
 
         .unit-group {
@@ -67,9 +62,8 @@
         }
 
         .number {
-            font-size: 5.5rem;
+            font-size: 5rem;
             font-weight: 900;
-            /* Animierter Farbverlauf */
             background: linear-gradient(120deg, #ec407a, #ad1457, #7b1fa2, #ec407a);
             background-size: 300% 300%;
             -webkit-background-clip: text;
@@ -85,26 +79,41 @@
         }
 
         .label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #999;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 15px;
+            letter-spacing: 2px;
+            margin-top: 10px;
         }
 
         .separator {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: #f8bbd0;
             font-weight: 200;
-            margin-top: -30px; /* Ausgleich für die Labels */
+            margin-top: -25px;
+        }
+
+        /* Die Wochen-Anzeige darunter */
+        .weeks-display {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #fce4ec;
+            font-size: 1.2rem;
+            color: #ad1457;
+            font-weight: 300;
+        }
+
+        #weeks-count {
+            font-weight: bold;
+            font-size: 1.4rem;
         }
 
         @media (max-width: 768px) {
-            .countdown-wrapper { gap: 10px; }
-            .number { font-size: 2.2rem; }
-            .separator { font-size: 1.5rem; margin-top: -20px; }
-            h1 { font-size: 1.4rem; }
-            .label { font-size: 0.7rem; letter-spacing: 1px; }
+            .countdown-wrapper { gap: 8px; }
+            .number { font-size: 2rem; }
+            .separator { font-size: 1.2rem; margin-top: -15px; }
+            h1 { font-size: 1.3rem; }
+            .weeks-display { font-size: 1rem; }
         }
     </style>
 </head>
@@ -134,10 +143,13 @@
                 <span class="label">Sek</span>
             </div>
         </div>
+
+        <div class="weeks-display">
+            Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
+        </div>
     </div>
 
     <script>
-        // Zieldatum: 28. März 2026, 17:00 Uhr
         const targetDate = new Date('March 28, 2026 17:00:00').getTime();
 
         function updateCountdown() {
@@ -154,10 +166,14 @@
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
 
+            // Wochenberechnung (auf eine Nachkommastelle genau)
+            const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
+
             document.getElementById('days').innerText = d.toString().padStart(2, '0');
             document.getElementById('hours').innerText = h.toString().padStart(2, '0');
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+            document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
         }
 
         setInterval(updateCountdown, 1000);
