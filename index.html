@@ -5,29 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wiedersehen: Rabsi & Finn</title>
     <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            --container-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #ad1457;
+            --text-secondary: #4a4a4a;
+            --label-color: #999;
+            --separator-color: #f8bbd0;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        /* Dark Mode Farben */
+        [data-theme="dark"] {
+            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d1a24 100%);
+            --container-bg: rgba(40, 40, 40, 0.95);
+            --text-main: #f06292;
+            --text-secondary: #e0e0e0;
+            --label-color: #bbb;
+            --separator-color: #4a4a4a;
+            --shadow: rgba(0,0,0,0.5);
+        }
+
         body {
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            background: var(--bg-gradient);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            text-align: center;
-            color: #4a4a4a;
+            transition: background 0.3s ease;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--container-bg);
             padding: 3.5rem 2rem;
             border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 50px var(--shadow);
             width: 90%;
             max-width: 900px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
         h1 {
-            color: #ad1457;
+            color: var(--text-main);
             font-size: 2rem;
             margin-bottom: 2.5rem;
             font-weight: 400;
@@ -80,7 +102,7 @@
 
         .label {
             font-size: 0.8rem;
-            color: #999;
+            color: var(--label-color);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 10px;
@@ -88,24 +110,33 @@
 
         .separator {
             font-size: 3.5rem;
-            color: #f8bbd0;
+            color: var(--separator-color);
             font-weight: 200;
             margin-top: -25px;
         }
 
-        /* Die Wochen-Anzeige darunter */
         .weeks-display {
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #fce4ec;
+            border-top: 1px solid var(--separator-color);
             font-size: 1.2rem;
-            color: #ad1457;
+            color: var(--text-main);
             font-weight: 300;
         }
 
-        #weeks-count {
-            font-weight: bold;
-            font-size: 1.4rem;
+        /* Dark Mode Button */
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--container-bg);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--shadow);
+            font-size: 1.5rem;
+            z-index: 100;
         }
 
         @media (max-width: 768px) {
@@ -113,11 +144,12 @@
             .number { font-size: 2rem; }
             .separator { font-size: 1.2rem; margin-top: -15px; }
             h1 { font-size: 1.3rem; }
-            .weeks-display { font-size: 1rem; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
+
+    <button id="theme-toggle" title="Design umschalten">🌓</button>
 
     <div class="container">
         <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
@@ -150,6 +182,7 @@
     </div>
 
     <script>
+        // Countdown Logik
         const targetDate = new Date('March 28, 2026 17:00:00').getTime();
 
         function updateCountdown() {
@@ -165,8 +198,6 @@
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-            // Wochenberechnung (auf eine Nachkommastelle genau)
             const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
 
             document.getElementById('days').innerText = d.toString().padStart(2, '0');
@@ -176,9 +207,23 @@
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
         }
 
+        // Theme Toggle Logik
+        const toggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+        });
+
+        // Automatische Erkennung des System-Designs
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.setAttribute('data-theme', 'dark');
+        }
+
         setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>
-
 </body>
 </html>
