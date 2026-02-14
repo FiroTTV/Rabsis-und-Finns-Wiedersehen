@@ -18,54 +18,58 @@
 
         .container {
             background: rgba(255, 255, 255, 0.9);
-            padding: 2.5rem;
+            padding: 3rem;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            max-width: 90%;
+            width: 90%;
+            max-width: 900px;
         }
 
         h1 {
             color: #ad1457;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
 
         .heart {
             color: #e91e63;
-            font-size: 2.5rem;
-            display: block;
-            margin-top: 10px;
+            font-size: 3rem;
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        #countdown {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .segment {
-            background: #fff;
-            padding: 15px;
-            border-radius: 20px;
-            min-width: 100px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .number {
-            display: block;
-            font-size: 3.5rem;
-            font-weight: 800;
-            /* Hier ist der Farbverlauf in der Zahl */
-            background: linear-gradient(to bottom, #ec407a, #ad1457);
+        /* Der große Countdown in einer Zeile */
+        .countdown-display {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #ec407a, #ad1457, #ec407a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: block;
+            margin: 20px 0;
+            letter-spacing: -2px;
         }
 
-        .label {
+        .labels-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: -10px;
+        }
+
+        /* Responsive Anpassung für Handys */
+        @media (max-width: 600px) {
+            .countdown-display {
+                font-size: 2.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -74,11 +78,15 @@
     <div class="container">
         <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
         
-        <div id="countdown">
-            <div class="segment"><span class="number" id="days">00</span><span class="label">Tage</span></div>
-            <div class="segment"><span class="number" id="hours">00</span><span class="label">Stunden</span></div>
-            <div class="segment"><span class="number" id="mins">00</span><span class="label">Minuten</span></div>
-            <div class="segment"><span class="number" id="secs">00</span><span class="label">Sekunden</span></div>
+        <div class="countdown-display" id="full-countdown">
+            00:00:00:00
+        </div>
+        
+        <div class="labels-display">
+            <span>Tage</span>
+            <span>Std</span>
+            <span>Min</span>
+            <span>Sek</span>
         </div>
     </div>
 
@@ -90,15 +98,18 @@
             const diff = target - now;
 
             if (diff <= 0) {
-                document.querySelector('.container').innerHTML = "<h1>Endlich zusammen! ❤️</h1>";
+                document.querySelector('.container').innerHTML = "<h1>Endlich zusammen! <span class='heart'>❤️</span></h1>";
                 return;
             }
 
-            document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-            document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-            document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+            document.getElementById('full-countdown').innerText = `${d}:${h}:${m}:${s}`;
         }
+        
         setInterval(update, 1000);
         update();
     </script>
