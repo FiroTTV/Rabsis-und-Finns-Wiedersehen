@@ -7,19 +7,19 @@
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
-            --container-bg: rgba(255, 255, 255, 0.9);
+            --container-bg: rgba(255, 255, 255, 0.85);
             --text-main: #ad1457;
-            --text-secondary: #4a4a4a;
-            --label-color: #999;
+            --star-color: #f06292;
+            --label-color: #888;
             --separator-color: #f8bbd0;
             --shadow: rgba(0,0,0,0.1);
         }
 
         [data-theme="dark"] {
-            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d1a24 100%);
+            --bg-gradient: linear-gradient(135deg, #121212 0%, #2d1a24 100%);
             --container-bg: rgba(30, 30, 30, 0.9);
             --text-main: #f06292;
-            --text-secondary: #e0e0e0;
+            --star-color: #fff176;
             --label-color: #bbb;
             --separator-color: #4a4a4a;
             --shadow: rgba(0,0,0,0.5);
@@ -34,23 +34,25 @@
             background: var(--bg-gradient);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             transition: background 0.5s ease;
-            overflow: hidden; /* Verhindert Scrollbalken durch Sterne */
+            overflow: hidden;
             position: relative;
         }
 
-        /* Sternen-Animation */
+        /* Echte Sterne Animation */
         .star {
             position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
+            top: -50px;
+            color: var(--star-color);
             pointer-events: none;
-            animation: fall linear infinite;
+            z-index: 1;
+            user-select: none;
+            animation: fall linear forwards;
         }
 
         @keyframes fall {
-            from { transform: translateY(-10vh) translateX(0); }
-            to { transform: translateY(110vh) translateX(50px); }
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
         }
 
         .container {
@@ -61,16 +63,16 @@
             width: 90%;
             max-width: 850px;
             text-align: center;
-            backdrop-filter: blur(10px); /* Glas-Effekt */
+            backdrop-filter: blur(12px);
             z-index: 10;
-            transition: all 0.3s ease;
+            position: relative;
         }
 
         h1 {
             color: var(--text-main);
             font-size: 2rem;
             margin-bottom: 2.5rem;
-            font-weight: 400;
+            font-weight: 500;
         }
 
         .heart {
@@ -148,50 +150,40 @@
             right: 20px;
             background: var(--container-bg);
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 50%;
             cursor: pointer;
             box-shadow: 0 4px 10px var(--shadow);
             font-size: 1.5rem;
             z-index: 100;
+            transition: transform 0.2s;
         }
+
+        #theme-toggle:active { transform: scale(0.9); }
 
         @media (max-width: 768px) {
             .countdown-wrapper { gap: 10px; }
             .number { font-size: 2.2rem; }
             .separator { font-size: 1.5rem; margin-top: -15px; }
-            h1 { font-size: 1.4rem; }
-            .weeks-display { font-size: 0.9rem; }
+            h1 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body data-theme="light">
 
-    <button id="theme-toggle" title="Design umschalten">🌓</button>
+    <button id="theme-toggle">🌓</button>
 
     <div class="container">
         <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
         
         <div class="countdown-wrapper">
-            <div class="unit-group">
-                <span class="number" id="days">00</span>
-                <span class="label">Tage</span>
-            </div>
+            <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
             <div class="separator">:</div>
-            <div class="unit-group">
-                <span class="number" id="hours">00</span>
-                <span class="label">Std</span>
-            </div>
+            <div class="unit-group"><span class="number" id="hours">00</span><span class="label">Std</span></div>
             <div class="separator">:</div>
-            <div class="unit-group">
-                <span class="number" id="mins">00</span>
-                <span class="label">Min</span>
-            </div>
+            <div class="unit-group"><span class="number" id="mins">00</span><span class="label">Min</span></div>
             <div class="separator">:</div>
-            <div class="unit-group">
-                <span class="number" id="secs">00</span>
-                <span class="label">Sek</span>
-            </div>
+            <div class="unit-group"><span class="number" id="secs">00</span><span class="label">Sek</span></div>
         </div>
 
         <div class="weeks-display">
@@ -200,22 +192,30 @@
     </div>
 
     <script>
-        // Sternen-Erzeugung
-        function createStars() {
-            const starCount = 100;
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3 + 1 + 'px';
-                star.style.width = size;
-                star.style.height = size;
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.animationDuration = Math.random() * 3 + 2 + 's';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(star);
-            }
+        // Sternen-Generator
+        function createStar() {
+            const star = document.createElement('div');
+            star.innerHTML = '★'; // Richtiges Stern-Symbol
+            star.className = 'star';
+            
+            const size = Math.random() * 20 + 10 + 'px';
+            star.style.fontSize = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            
+            const duration = Math.random() * 3 + 4 + 's';
+            star.style.animationDuration = duration;
+            
+            // Zufällige Transparenz für Tiefe
+            star.style.opacity = Math.random() * 0.7 + 0.2;
+            
+            document.body.appendChild(star);
+
+            // Stern löschen, wenn er unten angekommen ist
+            setTimeout(() => { star.remove(); }, 7000);
         }
-        createStars();
+
+        // Alle 300ms einen neuen Stern erzeugen
+        setInterval(createStar, 300);
 
         // Countdown Logik
         const targetDate = new Date('March 28, 2026 17:00:00').getTime();
