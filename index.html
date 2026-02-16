@@ -187,23 +187,7 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
-        /* Valentinstags-Text */
-        #valentine-text {
-            margin-top: 30px;
-            font-size: 1.3rem;
-            color: var(--valentine-text-color);
-            font-style: italic;
-            line-height: 1.6;
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.8s ease-out, max-height 0.8s ease-out;
-        }
-
-        #valentine-text.show {
-            opacity: 1;
-            max-height: 500px; /* Genug Platz für den Text */
-        }
+    
 
         @media (max-width: 768px) {
             .countdown-wrapper { gap: 10px; }
@@ -237,11 +221,6 @@
             Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
         </div>
 
-        <button id="valentine-button">❤️ Drück mich für eine Valentins-Nachricht! ❤️</button>
-        
-        <div id="valentine-text">
-            coming soon
-        </div>
     </div>
 
     <script>
@@ -297,23 +276,10 @@
             document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
         });
 
-        // Valentinstags-Button Logik
-        const valentineButton = document.getElementById('valentine-button');
-        const valentineText = document.getElementById('valentine-text');
-
-        valentineButton.addEventListener('click', () => {
-            valentineText.classList.toggle('show');
-            if (valentineText.classList.contains('show')) {
-                valentineButton.innerText = "❤️ Nachricht schließen ❤️";
-            } else {
-                valentineButton.innerText = "❤️ Drück mich für eine Valentins-Nachricht! ❤️";
-            }
-        });
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+       
     </script>
 </body>
 </html>
+
 
 
