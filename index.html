@@ -13,9 +13,6 @@
             --label-color: #888;
             --separator-color: #f8bbd0;
             --shadow: rgba(0,0,0,0.1);
-            --valentine-button-bg: #e91e63;
-            --valentine-button-text: white;
-            --valentine-text-color: #ad1457;
         }
 
         [data-theme="dark"] {
@@ -26,9 +23,6 @@
             --label-color: #bbb;
             --separator-color: #4a4a4a;
             --shadow: rgba(0,0,0,0.5);
-            --valentine-button-bg: #d32f2f;
-            --valentine-button-text: white;
-            --valentine-text-color: #f06292;
         }
 
         body {
@@ -44,6 +38,7 @@
             position: relative;
         }
 
+        /* Sternen-Animation */
         .star {
             position: absolute;
             top: -50px;
@@ -164,45 +159,18 @@
             transition: transform 0.2s;
         }
 
-        #theme-toggle:active { transform: scale(0.9); }
-
-        /* Valentinstags-Button */
-        #valentine-button {
-            background: var(--valentine-button-bg);
-            color: var(--valentine-button-text);
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-        }
-
-        #valentine-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-    
-
         @media (max-width: 768px) {
             .countdown-wrapper { gap: 10px; }
             .number { font-size: 2.2rem; }
             .separator { font-size: 1.5rem; margin-top: -15px; }
             h1 { font-size: 1.3rem; }
             .weeks-display { font-size: 0.9rem; }
-            #valentine-button { padding: 12px 25px; font-size: 1rem; }
-            #valentine-text { font-size: 1rem; }
         }
     </style>
 </head>
 <body data-theme="light">
 
-    <button id="theme-toggle">🌓</button>
+    <button id="theme-toggle" title="Design umschalten">🌓</button>
 
     <div class="container">
         <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
@@ -220,7 +188,6 @@
         <div class="weeks-display">
             Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
         </div>
-
     </div>
 
     <script>
@@ -229,22 +196,18 @@
             const star = document.createElement('div');
             star.innerHTML = '★';
             star.className = 'star';
-            
             const size = Math.random() * 20 + 10 + 'px';
             star.style.fontSize = size;
             star.style.left = Math.random() * 100 + 'vw';
-            
             const duration = Math.random() * 3 + 4 + 's';
             star.style.animationDuration = duration;
-            
             star.style.opacity = Math.random() * 0.7 + 0.2;
-            
             document.body.appendChild(star);
             setTimeout(() => { star.remove(); }, 7000);
         }
         setInterval(createStar, 300);
 
-        // Countdown Logik
+        // Countdown Logik (28. März 17 Uhr)
         const targetDate = new Date('March 28, 2026 16:00:00').getTime();
 
         function updateCountdown() {
@@ -276,10 +239,8 @@
             document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
         });
 
-       
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>
-
-
-
