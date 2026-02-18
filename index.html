@@ -14,6 +14,7 @@
             --separator-color: #4a4a4a;
             --shadow: rgba(0,0,0,0.5);
             --event-bg: rgba(50, 50, 50, 0.5);
+            --glint-color: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -57,7 +58,17 @@
             position: relative;
             margin: 20px 0;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            overflow: hidden; /* Wichtig für den Glint-Effekt */
+            overflow: hidden;
+            /* Hover-Übergang vorbereiten */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+        }
+
+        /* Hover-Effekt für die Hauptkarte */
+        .container:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(240, 98, 146, 0.2);
+            border: 1px solid rgba(240, 98, 146, 0.3);
         }
 
         /* Glint-Effekt (Lichtstrahl) */
@@ -71,11 +82,23 @@
             background: linear-gradient(
                 to right, 
                 transparent 0%, 
-                rgba(255, 255, 255, 0.1) 50%, 
+                var(--glint-color) 50%, 
                 transparent 100%
             );
             transform: skewX(-25deg);
             animation: glint 6s infinite;
+            transition: none;
+        }
+
+        /* Schnellerer Glint beim Hover */
+        .container:hover::after {
+            animation: glint 2s infinite;
+            background: linear-gradient(
+                to right, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                transparent 100%
+            );
         }
 
         @keyframes glint {
@@ -90,6 +113,11 @@
             margin-bottom: 2rem;
             font-weight: 500;
             letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover h1 {
+            transform: scale(1.05);
         }
 
         .heart {
@@ -188,6 +216,7 @@
         .event-card:hover {
             transform: translateY(-5px);
             background: rgba(70, 70, 70, 0.6);
+            border-color: var(--text-main);
         }
 
         .event-date {
@@ -210,6 +239,8 @@
             .separator { font-size: 1.5rem; margin-top: -15px; }
             h1 { font-size: 1.4rem; }
             .events-list { grid-template-columns: 1fr; }
+            /* Hover auf Mobile oft deaktiviert/störend, daher hier dezenter */
+            .container:hover { transform: translateY(-5px); }
         }
     </style>
 </head>
