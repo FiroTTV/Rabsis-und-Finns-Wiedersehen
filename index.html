@@ -6,7 +6,6 @@
     <title>Wiedersehen: Rabsi & Finn</title>
     <style>
         :root {
-            /* Fixiert auf Darkmode-Farben */
             --bg-gradient: linear-gradient(135deg, #121212 0%, #2d1a24 100%);
             --container-bg: rgba(30, 30, 30, 0.9);
             --text-main: #f06292;
@@ -58,6 +57,31 @@
             position: relative;
             margin: 20px 0;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden; /* Wichtig für den Glint-Effekt */
+        }
+
+        /* Glint-Effekt (Lichtstrahl) */
+        .container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 100%
+            );
+            transform: skewX(-25deg);
+            animation: glint 6s infinite;
+        }
+
+        @keyframes glint {
+            0% { left: -150%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
         }
 
         h1 {
@@ -239,7 +263,7 @@
             document.body.appendChild(star);
             setTimeout(() => { star.remove(); }, 7000);
         }
-        setInterval(createStar, 250); // Etwas mehr Sterne für den Darkmode
+        setInterval(createStar, 250);
 
         const targetDate = new Date('March 28, 2026 17:00:00').getTime();
 
@@ -270,4 +294,3 @@
     </script>
 </body>
 </html>
-
