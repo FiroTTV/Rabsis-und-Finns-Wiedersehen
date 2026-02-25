@@ -31,12 +31,14 @@
             padding: 20px 0;
         }
 
+        /* Sternen-Animation */
         .star {
             position: absolute;
             top: -50px;
             color: var(--star-color);
             pointer-events: none;
             z-index: 1;
+            user-select: none;
             animation: fall linear forwards;
         }
 
@@ -62,6 +64,7 @@
 
         .container:hover {
             transform: translateY(-8px);
+            box-shadow: 0 30px 70px rgba(240, 98, 146, 0.15);
         }
 
         .container::after {
@@ -109,6 +112,12 @@
             align-items: center;
             gap: 35px;
             margin-bottom: 20px;
+        }
+
+        .unit-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .number {
@@ -193,6 +202,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
+            margin-top: 10px;
         }
 
         .event-card {
@@ -214,6 +224,7 @@
             .number { font-size: 3.5rem; }
             .separator { font-size: 2rem; margin-top: -20px; }
             h1 { font-size: 1.6rem; }
+            .label { font-size: 0.7rem; letter-spacing: 1px; }
         }
     </style>
 </head>
@@ -263,9 +274,11 @@
             const star = document.createElement('div');
             star.innerHTML = '★';
             star.className = 'star';
-            star.style.fontSize = Math.random() * 20 + 10 + 'px';
+            const size = Math.random() * 20 + 10 + 'px';
+            star.style.fontSize = size;
             star.style.left = Math.random() * 100 + 'vw';
-            star.style.animationDuration = Math.random() * 4 + 3 + 's';
+            const duration = Math.random() * 4 + 3 + 's';
+            star.style.animationDuration = duration;
             star.style.opacity = Math.random() * 0.8 + 0.2;
             document.body.appendChild(star);
             setTimeout(() => { star.remove(); }, 7000);
@@ -284,7 +297,6 @@
                 return;
             }
 
-            // Exakter Countdown für die Anzeige oben
             const d = Math.floor(diff / (1000 * 60 * 60 * 24));
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -295,28 +307,25 @@
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
 
-            // WOCHEN-BERECHNUNG
+            // Wochen
             const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
 
-            // SCHLAFEN-LOGIK (Tagessprung um Mitternacht/3 Uhr)
-            // Wir vergleichen das aktuelle Datum mit dem Zieldatum rein auf Tagebene
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            // SCHLAFEN-LOGIK mit 3-Uhr-Regel
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             
-            // Differenz in vollen Tagen
-            let sleeps = Math.round((targetDay - today) / (1000 * 60 * 60 * 24));
-            
-            // Wenn es nach Mitternacht aber vor 3 Uhr morgens ist, 
-            // zählt man gefühlt noch den alten Tag (man hat ja noch nicht "neu" geschlafen)
+            // Wenn es vor 3 Uhr nachts ist, zählen wir heute noch als "Tag davor"
+            let referenceDate;
             if (now.getHours() < 3) {
-                // optional: hier könnte man sleeps +1 lassen, falls man vor 3 Uhr noch nicht geschlafen hat.
-                // In der Regel schaltet man aber um 0 Uhr um. 
+                referenceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+            } else {
+                referenceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             }
 
+            const sleeps = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24)) - 1;
             document.getElementById('sleep-total').innerText = Math.max(0, sleeps);
 
-            // FORTSCHRITTSBALKEN
+            // Balken
             const totalDuration = targetDate.getTime() - startDate;
             const elapsed = now.getTime() - startDate;
             const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
