@@ -143,7 +143,6 @@
             margin-top: -30px;
         }
 
-        /* Fortschrittsbalken Style */
         .progress-container {
             width: 80%;
             max-width: 600px;
@@ -273,38 +272,54 @@
         }
         setInterval(createStar, 250);
 
-        const targetDate = new Date('March 28, 2026 17:00:00').getTime();
-        const startDate = new Date('January 01, 2026 00:00:00').getTime(); // Startpunkt für den Balken
+        const targetDate = new Date('March 28, 2026 17:00:00');
+        const startDate = new Date('January 01, 2026 00:00:00').getTime();
 
         function updateCountdown() {
-            const now = new Date().getTime();
-            const diff = targetDate - now;
+            const now = new Date();
+            const diff = targetDate.getTime() - now.getTime();
 
             if (diff <= 0) {
                 document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>❤️</span></h1>";
                 return;
             }
 
+            // Exakter Countdown für die Anzeige oben
             const d = Math.floor(diff / (1000 * 60 * 60 * 24));
             const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((diff % (1000 * 60)) / 1000);
             
-            const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
-            const sleeps = d; // Die Anzahl der Tage entspricht der Anzahl der Nächte
-
-            // Balken berechnen
-            const totalDuration = targetDate - startDate;
-            const elapsed = now - startDate;
-            const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
-
             document.getElementById('days').innerText = d.toString().padStart(2, '0');
             document.getElementById('hours').innerText = h.toString().padStart(2, '0');
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
-            
+
+            // WOCHEN-BERECHNUNG
+            const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
-            document.getElementById('sleep-total').innerText = sleeps;
+
+            // SCHLAFEN-LOGIK (Tagessprung um Mitternacht/3 Uhr)
+            // Wir vergleichen das aktuelle Datum mit dem Zieldatum rein auf Tagebene
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
+            
+            // Differenz in vollen Tagen
+            let sleeps = Math.round((targetDay - today) / (1000 * 60 * 60 * 24));
+            
+            // Wenn es nach Mitternacht aber vor 3 Uhr morgens ist, 
+            // zählt man gefühlt noch den alten Tag (man hat ja noch nicht "neu" geschlafen)
+            if (now.getHours() < 3) {
+                // optional: hier könnte man sleeps +1 lassen, falls man vor 3 Uhr noch nicht geschlafen hat.
+                // In der Regel schaltet man aber um 0 Uhr um. 
+            }
+
+            document.getElementById('sleep-total').innerText = Math.max(0, sleeps);
+
+            // FORTSCHRITTSBALKEN
+            const totalDuration = targetDate.getTime() - startDate;
+            const elapsed = now.getTime() - startDate;
+            const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
             document.getElementById('progress-bar').style.width = progressPercent + '%';
         }
 
