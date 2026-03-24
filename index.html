@@ -31,7 +31,6 @@
             padding: 20px 0;
         }
 
-        /* Sternen-Animation */
         .star {
             position: absolute;
             top: -50px;
@@ -285,6 +284,7 @@
         }
         setInterval(createStar, 250);
 
+        // Zielzeitpunkt
         const targetDate = new Date('March 28, 2026 16:00:00');
         const startDate = new Date('January 01, 2026 00:00:00').getTime();
 
@@ -307,25 +307,33 @@
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
 
-            // Wochen
+            // Wochenanzeige
             const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
 
-            // SCHLAFEN-LOGIK mit 3-Uhr-Regel
+            // SCHLAFEN-LOGIK mit 3-Uhr-Regel (korrigiert)
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             
-            // Wenn es vor 3 Uhr nachts ist, zählen wir heute noch als "Tag davor"
-            let referenceDate;
+            // Heutiges Referenzdatum erstellen
+            let refYear = now.getFullYear();
+            let refMonth = now.getMonth();
+            let refDay = now.getDate();
+
+            // Wenn es vor 3 Uhr nachts ist, zählen wir noch den "alten" Tag
             if (now.getHours() < 3) {
-                referenceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
-            } else {
-                referenceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                refDay -= 1;
             }
+            
+            const referenceDate = new Date(refYear, refMonth, refDay);
 
-            const sleeps = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24)) - 1;
-            document.getElementById('sleep-total').innerText = Math.max(0, sleeps);
+            // Differenz der Tage berechnen (Millisekunden in Tage umwandeln)
+            // Wir nutzen Math.ceil, damit der heutige Tag (Dienstag) bis Samstag 
+            // 4 Nächte ergibt (Di-Mi, Mi-Do, Do-Fr, Fr-Sa).
+            const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
 
-            // Balken
+            // Fortschrittsbalken
             const totalDuration = targetDate.getTime() - startDate;
             const elapsed = now.getTime() - startDate;
             const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
@@ -337,4 +345,3 @@
     </script>
 </body>
 </html>
-
