@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiedersehen: Rabsi & Finn</title>
+    <title>Frühlings-Wiedersehen: Rabsi & Finn</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #121212 0%, #2d1a24 100%);
-            --container-bg: radial-gradient(circle at center, #25161d 0%, #1a1a1a 100%);
-            --text-main: #f06292;
-            --star-color: #fff176;
-            --label-color: #bbb;
-            --separator-color: #4a4a4a;
-            --shadow: rgba(0,0,0,0.5);
-            --event-bg: rgba(255, 255, 255, 0.03);
-            --glint-color: rgba(255, 255, 255, 0.08);
+            /* Frühlings-Darkmode Palette */
+            --bg-gradient: linear-gradient(135deg, #0a1a0f 0%, #1a0a14 100%);
+            --container-bg: radial-gradient(circle at center, #1b2e1f 0%, #121212 100%);
+            --text-main: #f48fb1; /* Kirschblüte */
+            --accent-spring: #c5e1a5; /* Junges Grün */
+            --star-color: #fff59d; /* Sanftes Gelb */
+            --label-color: #a5d6a7;
+            --separator-color: #388e3c;
+            --shadow: rgba(0,0,0,0.6);
+            --event-bg: rgba(197, 225, 165, 0.05);
+            --glint-color: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -31,18 +33,23 @@
             padding: 20px 0;
         }
 
-        .star {
+        /* Blütenblätter-Animation (statt Sterne) */
+        .petal {
             position: absolute;
             top: -50px;
-            color: var(--star-color);
+            color: var(--text-main);
             pointer-events: none;
             z-index: 1;
             user-select: none;
-            animation: fall linear forwards;
+            animation: drift linear forwards;
+            font-size: 1.2rem;
         }
 
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+        @keyframes drift {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
         }
 
         .container {
@@ -56,14 +63,14 @@
             backdrop-filter: blur(15px);
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(240, 98, 146, 0.1);
+            border: 1px solid rgba(197, 225, 165, 0.2);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .container:hover {
             transform: translateY(-8px);
-            box-shadow: 0 30px 70px rgba(240, 98, 146, 0.15);
+            border: 1px solid var(--accent-spring);
         }
 
         .container::after {
@@ -85,15 +92,16 @@
         }
 
         h1 {
-            color: var(--text-main);
+            color: var(--accent-spring);
             font-size: 2.2rem;
             margin-bottom: 3rem;
             font-weight: 500;
+            text-shadow: 0 0 15px rgba(197, 225, 165, 0.3);
         }
 
         .heart {
             display: inline-block;
-            color: #e91e63;
+            color: #f48fb1;
             animation: heartbeat 1.5s ease-in-out infinite;
             font-size: 2.8rem;
             vertical-align: middle;
@@ -101,8 +109,8 @@
 
         @keyframes heartbeat {
             0%, 30%, 60% { transform: scale(1); }
-            15% { transform: scale(1.2); }
-            45% { transform: scale(1.1); }
+            15% { transform: scale(1.15); }
+            45% { transform: scale(1.08); }
         }
 
         .countdown-wrapper {
@@ -113,20 +121,14 @@
             margin-bottom: 20px;
         }
 
-        .unit-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
         .number {
             font-size: 6.5rem;
             font-weight: 900;
-            background: linear-gradient(120deg, #f06292, #ad1457, #7b1fa2, #f06292);
+            background: linear-gradient(120deg, #c5e1a5, #f48fb1, #fff59d, #c5e1a5);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientMove 5s ease infinite;
+            animation: gradientMove 8s ease infinite;
             line-height: 0.9;
         }
 
@@ -159,16 +161,15 @@
             border-radius: 10px;
             margin: 40px auto 10px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(197, 225, 165, 0.1);
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #ad1457, #f06292);
-            box-shadow: 0 0 15px rgba(240, 98, 146, 0.5);
+            background: linear-gradient(90deg, #388e3c, #c5e1a5);
+            box-shadow: 0 0 15px rgba(197, 225, 165, 0.4);
             transition: width 1s ease-out;
-            border-radius: 10px;
         }
 
         .weeks-display {
@@ -176,21 +177,20 @@
             padding-bottom: 30px;
             border-bottom: 1px solid var(--separator-color);
             font-size: 1.3rem;
-            color: var(--text-main);
+            color: var(--accent-spring);
             font-weight: 300;
-            line-height: 1.6;
         }
 
         .sleep-count {
             display: block;
             font-size: 1.1rem;
-            color: var(--label-color);
+            color: #f8bbd0;
             margin-top: 8px;
         }
 
         .events-title {
             font-size: 1.2rem;
-            color: var(--text-main);
+            color: var(--accent-spring);
             margin: 30px 0 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -201,36 +201,33 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin-top: 10px;
         }
 
         .event-card {
             background: var(--event-bg);
             padding: 20px;
             border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(197, 225, 165, 0.1);
             transition: all 0.3s ease;
         }
 
         .event-card:hover {
-            transform: translateY(-5px);
-            background: rgba(240, 98, 146, 0.05);
-            border-color: var(--text-main);
+            background: rgba(197, 225, 165, 0.1);
+            border-color: var(--accent-spring);
         }
 
         @media (max-width: 900px) {
             .countdown-wrapper { gap: 15px; }
             .number { font-size: 3.5rem; }
             .separator { font-size: 2rem; margin-top: -20px; }
-            h1 { font-size: 1.6rem; }
-            .label { font-size: 0.7rem; letter-spacing: 1px; }
+            h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Zeit bis zum nächsten Wiedersehen <span class="heart">❤️</span></h1>
+        <h1>Warten auf den Frühling mit dir <span class="heart">🌸</span></h1>
         
         <div class="countdown-wrapper">
             <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
@@ -247,11 +244,11 @@
         </div>
 
         <div class="weeks-display">
-            Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
+            Noch etwa <span id="weeks-count">0</span> Wochen voller Vorfreude.
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
-        <div class="events-title">Highlights bis dahin 🗓️</div>
+        <div class="events-title">Frühlings-Highlights 🗓️</div>
         <div class="events-list">
             <div class="event-card">
                 <span class="event-date">14. Mai</span>
@@ -265,24 +262,20 @@
     </div>
 
     <script>
-        function createStar() {
-            const star = document.createElement('div');
-            star.innerHTML = '★';
-            star.className = 'star';
-            const size = Math.random() * 20 + 10 + 'px';
-            star.style.fontSize = size;
-            star.style.left = Math.random() * 100 + 'vw';
-            const duration = Math.random() * 4 + 3 + 's';
-            star.style.animationDuration = duration;
-            star.style.opacity = Math.random() * 0.8 + 0.2;
-            document.body.appendChild(star);
-            setTimeout(() => { star.remove(); }, 7000);
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.innerHTML = '🌸';
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = Math.random() * 10 + 10 + 'px';
+            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+            petal.style.opacity = Math.random() * 0.5 + 0.3;
+            document.body.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, 10000);
         }
-        setInterval(createStar, 250);
+        setInterval(createPetal, 400);
 
-        // Zielzeitpunkt aktualisiert
         const targetDate = new Date('May 14, 2026 18:00:00');
-        // Startzeitpunkt für den Balken (Heute)
         const startDate = new Date('April 03, 2026 00:00:00').getTime();
 
         function updateCountdown() {
@@ -290,7 +283,7 @@
             const diff = targetDate.getTime() - now.getTime();
 
             if (diff <= 0) {
-                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>❤️</span></h1>";
+                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>🌸</span></h1>";
                 return;
             }
 
@@ -307,20 +300,12 @@
             const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
 
-            // SCHLAFEN-LOGIK mit 3-Uhr-Regel
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-            
-            let refYear = now.getFullYear();
-            let refMonth = now.getMonth();
             let refDay = now.getDate();
+            if (now.getHours() < 3) refDay -= 1;
+            const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
 
-            if (now.getHours() < 3) {
-                refDay -= 1;
-            }
-            
-            const referenceDate = new Date(refYear, refMonth, refDay);
             const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
-            
             document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
 
             const totalDuration = targetDate.getTime() - startDate;
