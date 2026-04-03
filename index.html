@@ -230,7 +230,7 @@
 <body>
 
     <div class="container">
-        <h1>Zeit bis zum Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
+        <h1>Zeit bis zum nächsten Wiedersehen <span class="heart">❤️</span></h1>
         
         <div class="countdown-wrapper">
             <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
@@ -251,15 +251,11 @@
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
-        <div class="events-title">Kommende Highlights 🗓️</div>
+        <div class="events-title">Highlights bis dahin 🗓️</div>
         <div class="events-list">
             <div class="event-card">
-                <span class="event-date">28. März</span>
+                <span class="event-date">14. Mai</span>
                 <span class="event-name">Wiedersehen! 🥂</span>
-            </div>
-            <div class="event-card">
-                <span class="event-date">31. März</span>
-                <span class="event-name">Miniatur Wunderland 🚅</span>
             </div>
             <div class="event-card">
                 <span class="event-date">30. Juli</span>
@@ -284,9 +280,10 @@
         }
         setInterval(createStar, 250);
 
-        // Zielzeitpunkt
-        const targetDate = new Date('March 28, 2026 16:00:00');
-        const startDate = new Date('January 01, 2026 00:00:00').getTime();
+        // Zielzeitpunkt aktualisiert
+        const targetDate = new Date('May 14, 2026 18:00:00');
+        // Startzeitpunkt für den Balken (Heute)
+        const startDate = new Date('April 03, 2026 00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date();
@@ -307,33 +304,25 @@
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
 
-            // Wochenanzeige
             const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
             document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
 
-            // SCHLAFEN-LOGIK mit 3-Uhr-Regel (korrigiert)
+            // SCHLAFEN-LOGIK mit 3-Uhr-Regel
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             
-            // Heutiges Referenzdatum erstellen
             let refYear = now.getFullYear();
             let refMonth = now.getMonth();
             let refDay = now.getDate();
 
-            // Wenn es vor 3 Uhr nachts ist, zählen wir noch den "alten" Tag
             if (now.getHours() < 3) {
                 refDay -= 1;
             }
             
             const referenceDate = new Date(refYear, refMonth, refDay);
-
-            // Differenz der Tage berechnen (Millisekunden in Tage umwandeln)
-            // Wir nutzen Math.ceil, damit der heutige Tag (Dienstag) bis Samstag 
-            // 4 Nächte ergibt (Di-Mi, Mi-Do, Do-Fr, Fr-Sa).
             const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
             
             document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
 
-            // Fortschrittsbalken
             const totalDuration = targetDate.getTime() - startDate;
             const elapsed = now.getTime() - startDate;
             const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
