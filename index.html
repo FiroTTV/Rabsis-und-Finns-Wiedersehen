@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frühlings-Wiedersehen: Rabsi & Finn</title>
+    <title>Bright Candy Spring: Rabsi & Finn</title>
     <style>
         :root {
-            /* Frühlings-Darkmode Palette */
-            --bg-gradient: linear-gradient(135deg, #0a1a0f 0%, #1a0a14 100%);
-            --container-bg: radial-gradient(circle at center, #1b2e1f 0%, #121212 100%);
-            --text-main: #f48fb1; /* Kirschblüte */
-            --accent-spring: #c5e1a5; /* Junges Grün */
-            --star-color: #fff59d; /* Sanftes Gelb */
-            --label-color: #a5d6a7;
-            --separator-color: #388e3c;
-            --shadow: rgba(0,0,0,0.6);
-            --event-bg: rgba(197, 225, 165, 0.05);
-            --glint-color: rgba(255, 255, 255, 0.1);
+            /* Ultra-helle Frühlings-Palette */
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #fffde7 50%, #fce4ec 100%);
+            --container-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #c2185b;
+            --accent-pink: #f06292;
+            --accent-yellow: #fdd835;
+            --label-color: #777;
+            --separator-color: #f8bbd0;
+            --shadow: rgba(240, 98, 146, 0.15);
+            --event-bg: rgba(255, 255, 255, 0.6);
+            --glint-color: rgba(255, 255, 255, 0.9);
         }
 
         body {
@@ -29,15 +29,14 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             position: relative;
-            color: white;
+            color: #333;
             padding: 20px 0;
         }
 
-        /* Blütenblätter-Animation (statt Sterne) */
+        /* Mix Blütenblätter-Animation */
         .petal {
             position: absolute;
             top: -50px;
-            color: var(--text-main);
             pointer-events: none;
             z-index: 1;
             user-select: none;
@@ -54,25 +53,26 @@
 
         .container {
             background: var(--container-bg);
-            padding: 4rem 2rem;
+            padding: 4.5rem 2.5rem;
             border-radius: 50px;
-            box-shadow: 0 20px 60px var(--shadow);
+            box-shadow: 0 25px 70px var(--shadow);
             width: 90%;
             max-width: 1000px;
             text-align: center;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(8px);
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(197, 225, 165, 0.2);
+            border: 2px solid #ffffff;
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .container:hover {
             transform: translateY(-8px);
-            border: 1px solid var(--accent-spring);
+            box-shadow: 0 35px 80px rgba(240, 98, 146, 0.25);
         }
 
+        /* Glint-Effekt */
         .container::after {
             content: "";
             position: absolute;
@@ -82,7 +82,7 @@
             height: 100%;
             background: linear-gradient(to right, transparent 0%, var(--glint-color) 50%, transparent 100%);
             transform: skewX(-25deg);
-            animation: glint 12s infinite ease-in-out;
+            animation: glint 10s infinite ease-in-out;
         }
 
         @keyframes glint {
@@ -92,16 +92,16 @@
         }
 
         h1 {
-            color: var(--accent-spring);
+            color: var(--text-main);
             font-size: 2.2rem;
             margin-bottom: 3rem;
             font-weight: 500;
-            text-shadow: 0 0 15px rgba(197, 225, 165, 0.3);
+            letter-spacing: 1px;
         }
 
         .heart {
             display: inline-block;
-            color: #f48fb1;
+            color: #e91e63;
             animation: heartbeat 1.5s ease-in-out infinite;
             font-size: 2.8rem;
             vertical-align: middle;
@@ -109,8 +109,8 @@
 
         @keyframes heartbeat {
             0%, 30%, 60% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            45% { transform: scale(1.08); }
+            15% { transform: scale(1.2); }
+            45% { transform: scale(1.1); }
         }
 
         .countdown-wrapper {
@@ -118,17 +118,23 @@
             justify-content: center;
             align-items: center;
             gap: 35px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .unit-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .number {
             font-size: 6.5rem;
             font-weight: 900;
-            background: linear-gradient(120deg, #c5e1a5, #f48fb1, #fff59d, #c5e1a5);
-            background-size: 300% 300%;
+            background: linear-gradient(120deg, #ec407a, #fbc02d, #ec407a);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientMove 8s ease infinite;
+            animation: gradientMove 5s ease infinite;
             line-height: 0.9;
         }
 
@@ -156,41 +162,43 @@
         .progress-container {
             width: 80%;
             max-width: 600px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            height: 14px;
+            background: #f5f5f5;
+            border-radius: 12px;
             margin: 40px auto 10px;
             overflow: hidden;
-            border: 1px solid rgba(197, 225, 165, 0.1);
+            border: 1px solid #eee;
         }
 
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, #388e3c, #c5e1a5);
-            box-shadow: 0 0 15px rgba(197, 225, 165, 0.4);
+            background: linear-gradient(90deg, #f06292, #fdd835);
+            box-shadow: 0 0 10px rgba(251, 192, 45, 0.3);
             transition: width 1s ease-out;
         }
 
         .weeks-display {
-            margin: 10px 0 30px;
-            padding-bottom: 30px;
+            margin: 15px 0 35px;
+            padding-bottom: 35px;
             border-bottom: 1px solid var(--separator-color);
-            font-size: 1.3rem;
-            color: var(--accent-spring);
+            font-size: 1.4rem;
+            color: var(--text-main);
             font-weight: 300;
+            line-height: 1.6;
         }
 
         .sleep-count {
             display: block;
             font-size: 1.1rem;
-            color: #f8bbd0;
-            margin-top: 8px;
+            color: #555;
+            margin-top: 10px;
+            font-weight: 400;
         }
 
         .events-title {
             font-size: 1.2rem;
-            color: var(--accent-spring);
+            color: var(--text-main);
             margin: 30px 0 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -206,28 +214,45 @@
         .event-card {
             background: var(--event-bg);
             padding: 20px;
-            border-radius: 25px;
-            border: 1px solid rgba(197, 225, 165, 0.1);
+            border-radius: 30px;
+            border: 1px solid #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
             transition: all 0.3s ease;
         }
 
         .event-card:hover {
-            background: rgba(197, 225, 165, 0.1);
-            border-color: var(--accent-spring);
+            transform: translateY(-5px);
+            background: #fff;
+            border-color: var(--accent-pink);
+            box-shadow: 0 15px 30px rgba(240, 98, 146, 0.15);
+        }
+
+        .event-date {
+            display: block;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .event-name {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: bold;
         }
 
         @media (max-width: 900px) {
             .countdown-wrapper { gap: 15px; }
-            .number { font-size: 3.5rem; }
+            .number { font-size: 3.2rem; }
             .separator { font-size: 2rem; margin-top: -20px; }
-            h1 { font-size: 1.4rem; }
+            h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Warten auf den Frühling mit dir <span class="heart">🌸</span></h1>
+        <h1>Warten auf den Frühling mit dir <span class="heart">❤️</span></h1>
         
         <div class="countdown-wrapper">
             <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
@@ -244,11 +269,11 @@
         </div>
 
         <div class="weeks-display">
-            Noch etwa <span id="weeks-count">0</span> Wochen voller Vorfreude.
+            Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
-        <div class="events-title">Frühlings-Highlights 🗓️</div>
+        <div class="events-title">Highlights bis dahin 🗓️</div>
         <div class="events-list">
             <div class="event-card">
                 <span class="event-date">14. Mai</span>
@@ -264,16 +289,16 @@
     <script>
         function createPetal() {
             const petal = document.createElement('div');
-            petal.innerHTML = '🌸';
+            petal.innerHTML = Math.random() > 0.5 ? '🌸' : '🌼';
             petal.className = 'petal';
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = Math.random() * 10 + 10 + 'px';
-            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
-            petal.style.opacity = Math.random() * 0.5 + 0.3;
+            petal.style.fontSize = Math.random() * 10 + 12 + 'px';
+            petal.style.animationDuration = Math.random() * 5 + 6 + 's';
+            petal.style.opacity = Math.random() * 0.6 + 0.4;
             document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 10000);
+            setTimeout(() => { petal.remove(); }, 11000);
         }
-        setInterval(createPetal, 400);
+        setInterval(createPetal, 450);
 
         const targetDate = new Date('May 14, 2026 18:00:00');
         const startDate = new Date('April 03, 2026 00:00:00').getTime();
@@ -283,7 +308,7 @@
             const diff = targetDate.getTime() - now.getTime();
 
             if (diff <= 0) {
-                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>🌸</span></h1>";
+                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>❤️</span></h1>";
                 return;
             }
 
@@ -304,8 +329,8 @@
             let refDay = now.getDate();
             if (now.getHours() < 3) refDay -= 1;
             const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
-
             const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
+            
             document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
 
             const totalDuration = targetDate.getTime() - startDate;
