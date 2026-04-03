@@ -8,8 +8,9 @@
         :root {
             /* Warme, farbenfrohe Frühlings-Palette */
             --bg-gradient: linear-gradient(135deg, #fff59d 0%, #f48fb1 100%);
-            --container-bg: rgba(255, 255, 255, 0.8);
-            --text-main: #880e4f;
+            /* Kachel-Hintergrund: Halb-transparenter Verlauf von Gelb nach Pink */
+            --container-bg: linear-gradient(135deg, rgba(255, 249, 196, 0.6) 0%, rgba(248, 187, 208, 0.6) 100%);
+            --text-main: #880e4f; /* Dunkles Pink für Kontrast */
             --accent-pink: #e91e63;
             --accent-yellow: #fbc02d;
             --label-color: #5d4037;
@@ -59,10 +60,10 @@
             width: 90%;
             max-width: 950px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px); /* Verstärkter Blur-Effekt */
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -107,7 +108,7 @@
 
         @keyframes heartbeat {
             0%, 30%, 60% { transform: scale(1); }
-            15% { transform: scale(1.2); }
+            15= { transform: scale(1.2); }
             45% { transform: scale(1.1); }
         }
 
@@ -215,7 +216,7 @@
 
         .event-card:hover {
             transform: translateY(-5px);
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
             border-color: var(--accent-pink);
         }
 
@@ -244,7 +245,7 @@
 <body>
 
     <div class="container">
-        <h1>Wiedersehen im Frühling <span class="heart">🌸</span></h1>
+        <h1>Zeit bis zum Wiedersehen von Finn und Rabsi <span class="heart">❤️</span></h1>
         
         <div class="countdown-wrapper">
             <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
@@ -261,7 +262,7 @@
         </div>
 
         <div class="weeks-display">
-            Noch etwa <span id="weeks-count">0</span> Wochen.
+            Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
