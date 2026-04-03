@@ -6,9 +6,11 @@
     <title>Spring Glow: Rabsi & Finn</title>
     <style>
         :root {
+            /* Warme, farbenfrohe Frühlings-Palette */
             --bg-gradient: linear-gradient(135deg, #fff59d 0%, #f48fb1 100%);
-            --container-bg: linear-gradient(135deg, rgba(255, 249, 196, 0.7) 0%, rgba(248, 187, 208, 0.7) 100%);
-            --text-main: #880e4f;
+            /* Kachel-Hintergrund: Halb-transparenter Verlauf von Gelb nach Pink */
+            --container-bg: linear-gradient(135deg, rgba(255, 249, 196, 0.6) 0%, rgba(248, 187, 208, 0.6) 100%);
+            --text-main: #880e4f; /* Dunkles Pink für Kontrast */
             --accent-pink: #e91e63;
             --accent-yellow: #fbc02d;
             --label-color: #5d4037;
@@ -26,53 +28,51 @@
             min-height: 100vh;
             background: var(--bg-gradient);
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden; /* Verhindert Ruckeln durch Layout-Shifts */
+            overflow-x: hidden;
             position: relative;
             color: #333;
             padding: 20px 0;
         }
 
-        /* Optimierte Blütenblätter */
+        /* Blütenblätter */
         .petal {
             position: absolute;
-            top: -10vh;
+            top: -50px;
             pointer-events: none;
             z-index: 1;
             user-select: none;
-            will-change: transform; /* Sagt dem Browser: Das hier wird animiert */
             animation: drift linear forwards;
+            font-size: 1.2rem;
         }
 
         @keyframes drift {
-            0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.8; }
             90% { opacity: 0.8; }
-            100% { transform: translate3d(100px, 110vh, 0) rotate(720deg); opacity: 0; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
         }
 
         .container {
             background: var(--container-bg);
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             border-radius: 50px;
             box-shadow: 0 20px 60px var(--shadow);
             width: 90%;
             max-width: 950px;
             text-align: center;
-            backdrop-filter: blur(10px); /* Leicht reduziert für Performance */
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px); /* Verstärkter Blur-Effekt */
             z-index: 10;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
-            /* Transform für flüssigeres Hover */
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            backface-visibility: hidden;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .container:hover {
-            transform: translate3d(0, -8px, 0);
+            transform: translateY(-8px);
         }
 
+        /* Glint-Effekt */
         .container::after {
             content: "";
             position: absolute;
@@ -83,7 +83,6 @@
             background: linear-gradient(to right, transparent 0%, var(--glint-color) 50%, transparent 100%);
             transform: skewX(-25deg);
             animation: glint 10s infinite ease-in-out;
-            will-change: left;
         }
 
         @keyframes glint {
@@ -92,16 +91,41 @@
             100% { left: 150%; }
         }
 
-        h1 { color: var(--text-main); font-size: 2rem; margin-bottom: 2.5rem; font-weight: 500; }
-        .heart { display: inline-block; color: #e91e63; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
+        h1 {
+            color: var(--text-main);
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+
+        .heart {
+            display: inline-block;
+            color: #e91e63;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            font-size: 2.5rem;
+            vertical-align: middle;
+        }
 
         @keyframes heartbeat {
             0%, 30%, 60% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            45% { transform: scale(1.05); }
+            15= { transform: scale(1.2); }
+            45% { transform: scale(1.1); }
         }
 
-        .countdown-wrapper { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 20px; }
+        .countdown-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .unit-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .number {
             font-size: 6rem;
             font-weight: 900;
@@ -119,26 +143,102 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label { font-size: 0.9rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; }
-        .separator { font-size: 4rem; color: var(--separator-color); font-weight: 200; margin-top: -25px; }
+        .label {
+            font-size: 0.9rem;
+            color: var(--label-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
 
-        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 35px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
+        .separator {
+            font-size: 4rem;
+            color: var(--separator-color);
+            font-weight: 200;
+            margin-top: -25px;
+        }
 
-        .weeks-display { margin: 10px 0 30px; padding-bottom: 30px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
-        .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 8px; }
+        .progress-container {
+            width: 80%;
+            max-width: 600px;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            margin: 35px auto 10px;
+            overflow: hidden;
+        }
 
-        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 25px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-        .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.5); transition: transform 0.3s ease; }
-        .event-card:hover { transform: translate3d(0, -5px, 0); background: rgba(255, 255, 255, 0.8); }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #e91e63, #fbc02d);
+            transition: width 1s ease-out;
+        }
+
+        .weeks-display {
+            margin: 10px 0 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--separator-color);
+            font-size: 1.3rem;
+            color: var(--text-main);
+            font-weight: 300;
+        }
+
+        .sleep-count {
+            display: block;
+            font-size: 1.1rem;
+            color: #774d5e;
+            margin-top: 8px;
+        }
+
+        .events-title {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin: 25px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .event-card {
+            background: var(--event-bg);
+            padding: 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.8);
+            border-color: var(--accent-pink);
+        }
+
+        .event-date {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .event-name {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: bold;
+        }
 
         @media (max-width: 900px) {
-            .countdown-wrapper { gap: 12px; }
-            .number { font-size: 3rem; }
-            .separator { font-size: 2rem; margin-top: -15px; }
-            h1 { font-size: 1.4rem; }
-            .container { padding: 2rem 1rem; }
+            .countdown-wrapper { gap: 15px; }
+            .number { font-size: 3.5rem; }
+            .separator { font-size: 2rem; margin-top: -20px; }
+            h1 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -169,34 +269,29 @@
         <div class="events-title">Highlights 🗓️</div>
         <div class="events-list">
             <div class="event-card">
-                <span class="event-name" style="color: #888; font-size: 0.8rem; display: block; margin-bottom: 5px;">14. Mai</span>
-                <span style="font-weight: bold; color: var(--text-main);">Wiedersehen! 🥂</span>
+                <span class="event-date">14. Mai</span>
+                <span class="event-name">Wiedersehen! 🥂</span>
             </div>
             <div class="event-card">
-                <span class="event-name" style="color: #888; font-size: 0.8rem; display: block; margin-bottom: 5px;">30. Juli</span>
-                <span style="font-weight: bold; color: var(--text-main);">The Weeknd Konzert 🎤</span>
+                <span class="event-date">30. Juli</span>
+                <span class="event-name">The Weeknd Konzert 🎤</span>
             </div>
         </div>
     </div>
 
     <script>
-        // Optimierte Blüten-Erzeugung
         function createPetal() {
             const petal = document.createElement('div');
             petal.innerHTML = Math.random() > 0.5 ? '🌸' : '🌼';
             petal.className = 'petal';
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = Math.random() * 8 + 12 + 'px';
-            petal.style.animationDuration = Math.random() * 4 + 6 + 's';
-            petal.style.opacity = Math.random() * 0.5 + 0.3;
+            petal.style.fontSize = Math.random() * 10 + 10 + 'px';
+            petal.style.animationDuration = Math.random() * 5 + 6 + 's';
+            petal.style.opacity = Math.random() * 0.6 + 0.3;
             document.body.appendChild(petal);
-            
-            // Sofortiges Entfernen nach Ablauf der Animation spart RAM
-            setTimeout(() => { petal.remove(); }, 10000);
+            setTimeout(() => { petal.remove(); }, 11000);
         }
-        
-        // Etwas seltener neue Blüten erzeugen schont die CPU
-        setInterval(createPetal, 600);
+        setInterval(createPetal, 500);
 
         const targetDate = new Date('May 14, 2026 18:00:00');
         const startDate = new Date('April 03, 2026 00:00:00').getTime();
