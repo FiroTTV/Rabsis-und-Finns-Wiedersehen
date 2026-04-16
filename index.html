@@ -6,11 +6,9 @@
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
         :root {
-            /* Warme, farbenfrohe Frühlings-Palette */
             --bg-gradient: linear-gradient(135deg, #fff59d 0%, #f48fb1 100%);
-            /* Kachel-Hintergrund: Halb-transparenter Verlauf von Gelb nach Pink */
             --container-bg: linear-gradient(135deg, rgba(255, 249, 196, 0.6) 0%, rgba(248, 187, 208, 0.6) 100%);
-            --text-main: #880e4f; /* Dunkles Pink für Kontrast */
+            --text-main: #880e4f;
             --accent-pink: #e91e63;
             --accent-yellow: #fbc02d;
             --label-color: #5d4037;
@@ -18,6 +16,7 @@
             --shadow: rgba(136, 14, 79, 0.15);
             --event-bg: rgba(255, 255, 255, 0.4);
             --glint-color: rgba(255, 255, 255, 0.6);
+            --summer-text: #e67e22; /* Sommerliches Orange */
         }
 
         body {
@@ -31,10 +30,9 @@
             overflow-x: hidden;
             position: relative;
             color: #333;
-            padding: 20px 0;
+            padding: 40px 0;
         }
 
-        /* Blütenblätter */
         .petal {
             position: absolute;
             top: -50px;
@@ -54,13 +52,13 @@
 
         .container {
             background: var(--container-bg);
-            padding: 4rem 2rem;
+            padding: 3rem 2rem;
             border-radius: 50px;
             box-shadow: 0 20px 60px var(--shadow);
             width: 90%;
             max-width: 950px;
             text-align: center;
-            backdrop-filter: blur(15px); /* Verstärkter Blur-Effekt */
+            backdrop-filter: blur(15px);
             z-index: 10;
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -68,11 +66,8 @@
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .container:hover {
-            transform: translateY(-8px);
-        }
+        .container:hover { transform: translateY(-8px); }
 
-        /* Glint-Effekt */
         .container::after {
             content: "";
             position: absolute;
@@ -91,50 +86,26 @@
             100% { left: 150%; }
         }
 
-        h1 {
-            color: var(--text-main);
-            font-size: 2rem;
-            margin-bottom: 2.5rem;
-            font-weight: 500;
-        }
-
-        .heart {
-            display: inline-block;
-            color: #e91e63;
-            animation: heartbeat 1.5s ease-in-out infinite;
-            font-size: 2.5rem;
-            vertical-align: middle;
-        }
+        h1 { color: var(--text-main); font-size: 2rem; margin-bottom: 2rem; font-weight: 500; }
+        .heart { display: inline-block; color: #e91e63; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
 
         @keyframes heartbeat {
             0%, 30%, 60% { transform: scale(1); }
-            15= { transform: scale(1.2); }
+            15% { transform: scale(1.2); }
             45% { transform: scale(1.1); }
         }
 
-        .countdown-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .unit-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
+        .countdown-wrapper { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px; }
+        .unit-group { display: flex; flex-direction: column; align-items: center; }
         .number {
-            font-size: 6rem;
+            font-size: 5rem;
             font-weight: 900;
             background: linear-gradient(120deg, #d81b60, #fbc02d, #d81b60);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradientMove 5s ease infinite;
-            line-height: 0.9;
+            line-height: 1;
         }
 
         @keyframes gradientMove {
@@ -143,101 +114,36 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label {
-            font-size: 0.9rem;
-            color: var(--label-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 10px;
-        }
+        .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; }
+        .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
-        .separator {
-            font-size: 4rem;
-            color: var(--separator-color);
-            font-weight: 200;
-            margin-top: -25px;
-        }
+        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
 
-        .progress-container {
-            width: 80%;
-            max-width: 600px;
-            height: 12px;
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
-            margin: 35px auto 10px;
-            overflow: hidden;
-        }
+        .weeks-display { margin: 10px 0 20px; padding-bottom: 20px; border-bottom: 1px solid var(--separator-color); font-size: 1.2rem; color: var(--text-main); font-weight: 300; }
+        .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 5px; }
 
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #e91e63, #fbc02d);
-            transition: width 1s ease-out;
+        /* Sommer Abschnitt */
+        .summer-section {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px dashed var(--summer-text);
         }
+        .summer-title { color: var(--summer-text); font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-size: 1.1rem; }
+        .summer-countdown { font-size: 1.5rem; color: var(--text-main); font-weight: bold; }
 
-        .weeks-display {
-            margin: 10px 0 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--separator-color);
-            font-size: 1.3rem;
-            color: var(--text-main);
-            font-weight: 300;
-        }
-
-        .sleep-count {
-            display: block;
-            font-size: 1.1rem;
-            color: #774d5e;
-            margin-top: 8px;
-        }
-
-        .events-title {
-            font-size: 1.1rem;
-            color: var(--text-main);
-            margin: 25px 0 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-
-        .events-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .event-card {
-            background: var(--event-bg);
-            padding: 15px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.8);
-            border-color: var(--accent-pink);
-        }
-
-        .event-date {
-            display: block;
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .event-name {
-            display: block;
-            font-size: 1rem;
-            color: var(--text-main);
-            font-weight: bold;
-        }
+        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 25px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.5); transition: all 0.3s ease; }
+        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); border-color: var(--accent-pink); }
+        .event-date { display: block; font-size: 0.8rem; color: #888; margin-bottom: 5px; }
+        .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
 
         @media (max-width: 900px) {
-            .countdown-wrapper { gap: 15px; }
-            .number { font-size: 3.5rem; }
-            .separator { font-size: 2rem; margin-top: -20px; }
+            .number { font-size: 3rem; }
+            .separator { font-size: 1.5rem; }
             h1 { font-size: 1.5rem; }
         }
     </style>
@@ -266,10 +172,16 @@
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
+        <div class="summer-section">
+            <div class="summer-title">☀️ Sommer-Countdown ☀️</div>
+            <div class="summer-countdown" id="summer-timer">Lade Sommerzeit...</div>
+            <div class="label">bis zum 6. Juli (20 Uhr)</div>
+        </div>
+
         <div class="events-title">Highlights 🗓️</div>
         <div class="events-list">
             <div class="event-card">
-                <span class="event-date">14. Mai</span>
+                <span class="event-date">13. Mai</span>
                 <span class="event-name">Wiedersehen! 🥂</span>
             </div>
             <div class="event-card">
@@ -293,43 +205,56 @@
         }
         setInterval(createPetal, 500);
 
-        const targetDate = new Date('July 04, 2026 18:00:00');
+        // Zieldaten
+        const mainTargetDate = new Date('May 13, 2026 18:30:00');
+        const summerTargetDate = new Date('July 06, 2026 20:00:00');
         const startDate = new Date('April 03, 2026 00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date();
-            const diff = targetDate.getTime() - now.getTime();
+            
+            // Haupt-Countdown (13. Mai)
+            const diff = mainTargetDate.getTime() - now.getTime();
 
             if (diff <= 0) {
-                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>❤️</span></h1>";
-                return;
+                document.querySelector('.container h1').innerHTML = "Endlich wieder vereint! ❤️";
+            } else {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').innerText = d.toString().padStart(2, '0');
+                document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+                document.getElementById('mins').innerText = m.toString().padStart(2, '0');
+                document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+
+                const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
+                document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
+
+                const targetDay = new Date(mainTargetDate.getFullYear(), mainTargetDate.getMonth(), mainTargetDate.getDate());
+                let refDay = now.getDate();
+                if (now.getHours() < 3) refDay -= 1;
+                const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
+                const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
+                document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
+
+                const totalDuration = mainTargetDate.getTime() - startDate;
+                const elapsed = now.getTime() - startDate;
+                const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
+                document.getElementById('progress-bar').style.width = progressPercent + '%';
             }
 
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').innerText = d.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-            document.getElementById('mins').innerText = m.toString().padStart(2, '0');
-            document.getElementById('secs').innerText = s.toString().padStart(2, '0');
-
-            const weeks = (diff / (1000 * 60 * 60 * 24 * 7)).toFixed(1);
-            document.getElementById('weeks-count').innerText = weeks.replace('.', ',');
-
-            const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-            let refDay = now.getDate();
-            if (now.getHours() < 3) refDay -= 1;
-            const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
-            const sleepDiff = Math.round((targetDay - referenceDate) / (1000 * 60 * 60 * 24));
-            
-            document.getElementById('sleep-total').innerText = Math.max(0, sleepDiff);
-
-            const totalDuration = targetDate.getTime() - startDate;
-            const elapsed = now.getTime() - startDate;
-            const progressPercent = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
-            document.getElementById('progress-bar').style.width = progressPercent + '%';
+            // Sommer-Countdown (6. Juli)
+            const summerDiff = summerTargetDate.getTime() - now.getTime();
+            if (summerDiff <= 0) {
+                document.getElementById('summer-timer').innerText = "Der Sommer ist da!";
+            } else {
+                const sd = Math.floor(summerDiff / (1000 * 60 * 60 * 24));
+                const sh = Math.floor((summerDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const sm = Math.floor((summerDiff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('summer-timer').innerText = `${sd} Tage, ${sh} Std, ${sm} Min`;
+            }
         }
 
         setInterval(updateCountdown, 1000);
