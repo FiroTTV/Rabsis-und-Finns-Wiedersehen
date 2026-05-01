@@ -16,7 +16,9 @@
             --shadow: rgba(136, 14, 79, 0.15);
             --event-bg: rgba(255, 255, 255, 0.4);
             --glint-color: rgba(255, 255, 255, 0.6);
-            --summer-gradient: linear-gradient(120deg, #f39c12, #e67e22, #fbc02d, #f39c12);
+            /* Vereinheitlichter Farbverlauf für beide Countdowns */
+            --main-gradient: linear-gradient(120deg, #d81b60, #fbc02d, #d81b60);
+            --summer-transition-gradient: linear-gradient(120deg, #f39c12, #e67e22, #fbc02d, #f39c12);
         }
 
         body {
@@ -106,8 +108,8 @@
             line-height: 1;
         }
 
-        .number.main { background-image: linear-gradient(120deg, #d81b60, #fbc02d, #d81b60); }
-        .number.summer { background-image: var(--summer-gradient); }
+        /* Beide nutzen jetzt den gleichen Pink-Gelb Gradient */
+        .number.main, .number.summer { background-image: var(--main-gradient); }
 
         @keyframes gradientMove {
             0% { background-position: 0% 50%; }
@@ -211,7 +213,6 @@
         const mainTarget = new Date('May 13, 2026 18:30:00');
         const summerTarget = new Date('July 06, 2026 20:00:00');
         
-        // Startdaten für Fortschrittsbalken
         const startReunion = new Date('April 03, 2026 00:00:00').getTime();
         const startSummer = new Date('May 13, 2026 18:30:00').getTime();
 
@@ -233,7 +234,7 @@
                 document.getElementById('summer-box').style.display = 'none';
                 document.getElementById('main-title').innerHTML = 'Warten auf den Sommer <span class="heart">☀️</span>';
                 
-                // Zahlen auf Sommer-Gradient umstellen
+                // Beim Phasenwechsel auf den "echten" Sommer-Gradient (Orange) umschalten
                 document.querySelectorAll('.number.main').forEach(n => {
                     n.style.backgroundImage = 'linear-gradient(120deg, #f39c12, #e67e22, #fbc02d, #f39c12)';
                 });
@@ -264,7 +265,6 @@
                 document.getElementById('progress-bar').style.width = progress + '%';
             }
 
-            // Kleiner Sommercountdown (unten)
             if (!isSummerPhase && diffSummer > 0) {
                 document.getElementById('s-days').innerText = Math.floor(diffSummer / 86400000).toString().padStart(2, '0');
                 document.getElementById('s-hours').innerText = Math.floor((diffSummer % 86400000) / 3600000).toString().padStart(2, '0');
