@@ -1,12 +1,3 @@
-Ah, alles klar – mein Fehler! Ich sehe jetzt genau, woran es liegt.
-
-In dem CSS-Code für `.container` fehlt in der Version davor einfach die `height`-Definition. Da die Kachel keine feste Höhe hat, zieht sie sich nur so weit zusammen, wie Inhalt da ist – und da der zweite Sommer-Countdown jetzt komplett weg ist, fehlt der Kachel die Höhe nach unten hin. Sie wirkt „gestaucht“, weil unten plötzlich leerer Raum im Browser entsteht.
-
-Ich habe das korrigiert, indem ich der Kachel ein `min-height: 55vh` gegeben habe. Dadurch behält sie ihre schöne, gestreckte Form nach oben und unten, selbst wenn weniger Text drin steht.
-
-Hier ist der korrigierte Code:
-
-```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -240,5 +231,3 @@ Hier ist der korrigierte Code:
     </script>
 </body>
 </html>
-
-```
