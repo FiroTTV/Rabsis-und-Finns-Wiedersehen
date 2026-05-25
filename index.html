@@ -1,3 +1,12 @@
+Ah, alles klar – mein Fehler! Ich sehe jetzt genau, woran es liegt.
+
+In dem CSS-Code für `.container` fehlt in der Version davor einfach die `height`-Definition. Da die Kachel keine feste Höhe hat, zieht sie sich nur so weit zusammen, wie Inhalt da ist – und da der zweite Sommer-Countdown jetzt komplett weg ist, fehlt der Kachel die Höhe nach unten hin. Sie wirkt „gestaucht“, weil unten plötzlich leerer Raum im Browser entsteht.
+
+Ich habe das korrigiert, indem ich der Kachel ein `min-height: 55vh` gegeben habe. Dadurch behält sie ihre schöne, gestreckte Form nach oben und unten, selbst wenn weniger Text drin steht.
+
+Hier ist der korrigierte Code:
+
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -52,11 +61,15 @@
 
         .container {
             background: var(--container-bg);
-            padding: 4rem 2rem; /* Wieder das große Padding für eine gestreckte Kachel */
+            padding: 5rem 2rem; /* Erhöhter Innenabstand oben/unten */
             border-radius: 50px;
             box-shadow: 0 20px 60px var(--shadow);
             width: 90%;
             max-width: 950px;
+            min-height: 55vh; /* Garantiert, dass die Kachel lang gestreckt bleibt */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             text-align: center;
             backdrop-filter: blur(15px);
             z-index: 10;
@@ -86,13 +99,13 @@
             100% { left: 150%; }
         }
 
-        h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2rem; margin-top: 0; }
-        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 35px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
+        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
         .heart { display: inline-block; color: #e91e63; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
         @keyframes heartbeat { 0%, 30%, 60% { transform: scale(1); } 15% { transform: scale(1.2); } 45% { transform: scale(1.1); } }
 
-        .countdown-wrapper { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 20px; }
+        .countdown-wrapper { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 25px; }
         .unit-group { display: flex; flex-direction: column; align-items: center; }
         
         .number {
@@ -118,7 +131,7 @@
         .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
 
-        .weeks-display { margin: 10px 0 40px; padding-bottom: 20px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
+        .weeks-display { margin: 15px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
         .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 8px; font-weight: bold; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
@@ -132,7 +145,7 @@
             .countdown-wrapper { gap: 12px; }
             .separator { font-size: 1.5rem; }
             h1 { font-size: 1.6rem; }
-            .container { padding: 3rem 1.5rem; } /* Auch auf Handys wieder schöner Freiraum */
+            .container { padding: 4rem 1.5rem; min-height: 60vh; }
         }
     </style>
 </head>
@@ -227,3 +240,5 @@
     </script>
 </body>
 </html>
+
+```
