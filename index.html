@@ -52,7 +52,7 @@
 
         .container {
             background: var(--container-bg);
-            padding: 4rem 2rem;
+            padding: 4rem 2rem; /* Wieder das große Padding für eine gestreckte Kachel */
             border-radius: 50px;
             box-shadow: 0 20px 60px var(--shadow);
             width: 90%;
@@ -132,6 +132,7 @@
             .countdown-wrapper { gap: 12px; }
             .separator { font-size: 1.5rem; }
             h1 { font-size: 1.6rem; }
+            .container { padding: 3rem 1.5rem; } /* Auch auf Handys wieder schöner Freiraum */
         }
     </style>
 </head>
@@ -186,9 +187,7 @@
         }
         setInterval(createPetal, 500);
 
-        // Neues Zieldatum gesetzt
         const targetDate = new Date('July 06, 2026 18:15:00');
-        // Startdatum für den Fortschrittsbalken (ab heute angepasst)
         const startDate = new Date('May 25, 2026 00:00:00').getTime();
 
         function updateCountdown() {
@@ -212,7 +211,6 @@
 
             document.getElementById('weeks-count').innerText = (diff / 604800000).toFixed(1).replace('.', ',');
 
-            // Schlafen-Logik mit dem 3-Uhr-Wechsel
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             let refDay = now.getDate();
             if (now.getHours() < 3) refDay -= 1;
@@ -220,7 +218,6 @@
             
             document.getElementById('sleep-total').innerText = Math.max(0, Math.round((targetDay - referenceDate) / 86400000));
 
-            // Fortschrittsbalken
             const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
             document.getElementById('progress-bar').style.width = progress + '%';
         }
