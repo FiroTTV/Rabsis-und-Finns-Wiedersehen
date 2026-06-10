@@ -52,12 +52,12 @@
 
         .container {
             background: var(--container-bg);
-            padding: 5rem 2rem; /* Erhöhter Innenabstand oben/unten */
+            padding: 5rem 2rem;
             border-radius: 50px;
             box-shadow: 0 20px 60px var(--shadow);
             width: 90%;
             max-width: 950px;
-            min-height: 55vh; /* Garantiert, dass die Kachel lang gestreckt bleibt */
+            min-height: 55vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -192,7 +192,8 @@
         setInterval(createPetal, 500);
 
         const targetDate = new Date('July 06, 2026 18:15:00');
-        const startDate = new Date('May 25, 2026 00:00:00').getTime();
+        // Startdatum für den Fortschrittsbalken auf den 17. Mai 2026 gelegt
+        const startDate = new Date('May 17, 2026 00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date();
