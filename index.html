@@ -94,7 +94,11 @@
         .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
         .heart { display: inline-block; color: #e91e63; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
-        @keyframes heartbeat { 0%, 30%, 60% { transform: scale(1); } 15% { transform: scale(1.2); } 45% { transform: scale(1.1); } }
+        @keyframes heartbeat { 
+            0%, 30%, 60% { transform: scale(1); } 
+            15% { transform: scale(1.2); } 
+            45% { transform: scale(1.1); } 
+        }
 
         .countdown-wrapper { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 25px; }
         .unit-group { display: flex; flex-direction: column; align-items: center; }
@@ -122,8 +126,9 @@
         .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
 
-        .weeks-display { margin: 15px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
+        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
         .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 8px; font-weight: bold; }
+        .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 5px; font-weight: 400; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
         .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.5); transition: all 0.3s ease; }
@@ -162,6 +167,7 @@
         <div class="weeks-display">
             Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
             <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
+            <span class="minutes-count">Das entspricht etwa <span id="minutes-total">0</span> Minuten. ⏳</span>
         </div>
 
         <div class="events-title">Highlights 🗓️</div>
@@ -192,7 +198,6 @@
         setInterval(createPetal, 500);
 
         const targetDate = new Date('July 06, 2026 18:15:00');
-        // Startdatum für den Fortschrittsbalken auf den 17. Mai 2026 gelegt
         const startDate = new Date('May 17, 2026 00:00:00').getTime();
 
         function updateCountdown() {
@@ -214,15 +219,21 @@
             document.getElementById('mins').innerText = m.toString().padStart(2, '0');
             document.getElementById('secs').innerText = s.toString().padStart(2, '0');
 
+            // Wochen
             document.getElementById('weeks-count').innerText = (diff / 604800000).toFixed(1).replace('.', ',');
 
+            // Schlafen-Logik
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             let refDay = now.getDate();
             if (now.getHours() < 3) refDay -= 1;
             const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
-            
             document.getElementById('sleep-total').innerText = Math.max(0, Math.round((targetDay - referenceDate) / 86400000));
 
+            // Minuten-Logik (mit Tausender-Trennpunkt)
+            const totalMinutes = Math.floor(diff / 60000);
+            document.getElementById('minutes-total').innerText = totalMinutes.toLocaleString('de-DE');
+
+            // Fortschrittsbalken
             const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
             document.getElementById('progress-bar').style.width = progress + '%';
         }
