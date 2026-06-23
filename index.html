@@ -127,8 +127,8 @@
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
 
         .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
+        .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 6px; font-weight: 400; }
         .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 8px; font-weight: bold; }
-        .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 5px; font-weight: 400; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
         .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.5); transition: all 0.3s ease; }
@@ -166,8 +166,8 @@
 
         <div class="weeks-display">
             Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
-            <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
             <span class="minutes-count">Das entspricht etwa <span id="minutes-total">0</span> Minuten. ⏳</span>
+            <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
         </div>
 
         <div class="events-title">Highlights 🗓️</div>
@@ -222,16 +222,16 @@
             // Wochen
             document.getElementById('weeks-count').innerText = (diff / 604800000).toFixed(1).replace('.', ',');
 
+            // Minuten-Logik (mit Tausender-Trennpunkt)
+            const totalMinutes = Math.floor(diff / 60000);
+            document.getElementById('minutes-total').innerText = totalMinutes.toLocaleString('de-DE');
+
             // Schlafen-Logik
             const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
             let refDay = now.getDate();
             if (now.getHours() < 3) refDay -= 1;
             const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
             document.getElementById('sleep-total').innerText = Math.max(0, Math.round((targetDay - referenceDate) / 86400000));
-
-            // Minuten-Logik (mit Tausender-Trennpunkt)
-            const totalMinutes = Math.floor(diff / 60000);
-            document.getElementById('minutes-total').innerText = totalMinutes.toLocaleString('de-DE');
 
             // Fortschrittsbalken
             const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
