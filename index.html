@@ -6,26 +6,25 @@
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
         :root {
-            /* Sommerliches Babyhellblau für den Hintergrund */
+            /* Sommerliches Babyhellblau */
             --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
-            /* Helle, luftige Kachel ist zurück */
-            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(179, 229, 252, 0.4) 100%);
+            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(225, 245, 254, 0.7) 100%);
             
-            /* Sanftes Weiß für die Schrift */
-            --text-main: #ffffff; 
-            --text-sub: #f0f8ff;
+            /* Neue coole Schriftfarbe: Tiefes, edles Ozean-Navy */
+            --text-main: #0a2342; 
+            --text-sub: #1e3799;
             
             /* Akzente */
-            --accent-heart: #ff4757; 
-            --label-color: #ffffff; 
-            --separator-color: rgba(255, 255, 255, 0.7);
-            --shadow: rgba(1, 87, 155, 0.15);
-            --event-bg: rgba(255, 255, 255, 0.3);
-            --glint-color: rgba(255, 255, 255, 0.8);
+            --accent-heart: #ff4757; /* Klares, sattes Rot-Pink fürs Herz */
+            --label-color: #0097e6; /* Strahlendes Teal/Blau für die Labels */
+            --separator-color: rgba(10, 35, 66, 0.15);
+            --shadow: rgba(1, 87, 155, 0.2);
+            --event-bg: rgba(255, 255, 255, 0.65);
+            --glint-color: rgba(255, 255, 255, 0.9);
             
-            /* Erfrischender blauer Verlauf für den Countdown */
-            --main-gradient: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
-            --progress-gradient: linear-gradient(90deg, #00f2fe, #4facfe);
+            /* Neuer "Tropical Sunset" Verlauf für die Zahlen */
+            --main-gradient: linear-gradient(120deg, #ff4757, #ffa502, #ff4757);
+            --progress-gradient: linear-gradient(90deg, #ff4757, #ffa502);
         }
 
         body {
@@ -74,7 +73,7 @@
             backdrop-filter: blur(15px);
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -99,16 +98,10 @@
             100% { left: 150%; }
         }
 
-        /* Sanfter Schatten, damit das Weiß auf der hellen Kachel lesbar ist */
-        h1, .events-title, .weeks-display, .event-name {
-            color: var(--text-main);
-            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
-        }
+        h1 { color: var(--text-main); font-weight: 600; letter-spacing: 0.5px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
+        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
-        h1 { font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
-        .events-title { font-size: 1.1rem; margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-
-        .heart { display: inline-block; color: var(--accent-heart); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; text-shadow: none; }
+        .heart { display: inline-block; color: var(--accent-heart); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
         @keyframes heartbeat { 
             0%, 30%, 60% { transform: scale(1); } 
             15% { transform: scale(1.2); } 
@@ -127,8 +120,7 @@
             animation: gradientMove 5s ease infinite;
             line-height: 1;
             background-image: var(--main-gradient);
-            /* Blauer Glow für die Zahlen */
-            filter: drop-shadow(0px 4px 10px rgba(0, 242, 254, 0.4));
+            text-shadow: 0px 4px 15px rgba(255, 71, 87, 0.2); /* Sanfter Glow-Effekt */
         }
 
         @keyframes gradientMove {
@@ -137,21 +129,21 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label { font-size: 0.85rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: 600; text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15); }
-        .separator { font-size: 3.5rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); }
+        .label { font-size: 0.85rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: 700; }
+        .separator { font-size: 3.5rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
-        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.4); }
-        .progress-bar { height: 100%; width: 0%; background: var(--progress-gradient); box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); transition: width 1s ease-out; }
+        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
+        .progress-bar { height: 100%; width: 0%; background: var(--progress-gradient); box-shadow: 0 0 10px rgba(255, 165, 2, 0.5); transition: width 1s ease-out; }
 
-        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 400; display: flex; flex-direction: column; align-items: center; }
-        .minutes-count { display: block; font-size: 1rem; color: var(--text-main); margin-top: 6px; font-weight: 400; }
-        .sleep-count { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 8px; font-weight: bold; }
+        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 400; display: flex; flex-direction: column; align-items: center; }
+        .minutes-count { display: block; font-size: 1rem; color: var(--text-sub); margin-top: 6px; font-weight: 500; }
+        .sleep-count { display: block; font-size: 1.15rem; color: var(--accent-heart); margin-top: 8px; font-weight: bold; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; }
-        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.6); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.5); border-color: #00f2fe; box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2); }
-        .event-date { display: block; font-size: 0.8rem; color: var(--text-main); margin-bottom: 5px; font-weight: 500; text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15); }
-        .event-name { display: block; font-size: 1rem; font-weight: bold; }
+        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.9); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .event-card:hover { transform: translateY(-5px); background: #ffffff; border-color: var(--accent-heart); box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15); }
+        .event-date { display: block; font-size: 0.8rem; color: var(--label-color); margin-bottom: 5px; font-weight: 600; }
+        .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
 
         @media (max-width: 900px) {
             .number { font-size: 3rem; }
