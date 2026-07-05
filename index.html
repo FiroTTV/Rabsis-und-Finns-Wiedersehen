@@ -9,13 +9,14 @@
             --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
             --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(179, 229, 252, 0.65) 100%);
             --text-main: #01579b;
-            --accent-pink: #ff7043;
+            --accent-pink: #ff4081;
             --label-color: #0277bd;
             --separator-color: rgba(1, 87, 155, 0.2);
             --shadow: rgba(1, 87, 155, 0.15);
             --event-bg: rgba(255, 255, 255, 0.55);
             --glint-color: rgba(255, 255, 255, 0.8);
-            --main-gradient: linear-gradient(120deg, #ff9800, #ffca28, #ff9800);
+            /* Dynamischer Sommer-Sonnenuntergangs-Verlauf */
+            --main-gradient: linear-gradient(120deg, #ff4081, #ff9800, #ffeb3b, #ff4081);
         }
 
         body {
@@ -92,7 +93,7 @@
         h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
         .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
-        .heart { display: inline-block; color: #ff7043; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
+        .heart { display: inline-block; color: var(--accent-pink); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
         @keyframes heartbeat { 
             0%, 30%, 60% { transform: scale(1); } 
             15% { transform: scale(1.2); } 
@@ -123,11 +124,11 @@
         .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
         .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.08); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff7043, #ffd54f); transition: width 1s ease-out; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4081, #ffeb3b); transition: width 1s ease-out; }
 
         .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; display: flex; flex-direction: column; align-items: center; }
         .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 6px; font-weight: 400; }
-        .sleep-count { display: block; font-size: 1.1rem; color: #ff7043; margin-top: 8px; font-weight: bold; }
+        .sleep-count { display: block; font-size: 1.1rem; color: var(--accent-pink); margin-top: 8px; font-weight: bold; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; }
         .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8); transition: all 0.3s ease; }
