@@ -6,17 +6,18 @@
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #fff59d 0%, #f48fb1 100%);
-            --container-bg: linear-gradient(135deg, rgba(255, 249, 196, 0.6) 0%, rgba(248, 187, 208, 0.6) 100%);
-            --text-main: #880e4f;
-            --accent-pink: #e91e63;
-            --accent-yellow: #fbc02d;
-            --label-color: #5d4037;
-            --separator-color: rgba(233, 30, 99, 0.2);
-            --shadow: rgba(136, 14, 79, 0.15);
-            --event-bg: rgba(255, 255, 255, 0.4);
-            --glint-color: rgba(255, 255, 255, 0.6);
-            --main-gradient: linear-gradient(120deg, #d81b60, #fbc02d, #d81b60);
+            /* Sommerliches Babyhellblau */
+            --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
+            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(179, 229, 252, 0.6) 100%);
+            --text-main: #01579b; /* Tiefes Ozeanblau für guten Kontrast */
+            --accent-pink: #ff7043; /* Sommerliches Korallen-Orange */
+            --label-color: #0277bd;
+            --separator-color: rgba(1, 87, 155, 0.2);
+            --shadow: rgba(1, 87, 155, 0.15);
+            --event-bg: rgba(255, 255, 255, 0.5);
+            --glint-color: rgba(255, 255, 255, 0.8);
+            /* Sonnengelb/Oranger Verlauf für die Zahlen */
+            --main-gradient: linear-gradient(120deg, #ff9800, #ffca28, #ff9800);
         }
 
         body {
@@ -33,21 +34,21 @@
             padding: 60px 0;
         }
 
-        .petal {
+        .umbrella {
             position: absolute;
             top: -50px;
             pointer-events: none;
             z-index: 1;
             user-select: none;
             animation: drift linear forwards;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
 
         @keyframes drift {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
+            0% { transform: translateY(0) translateX(0) rotate(-15deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% { transform: translateY(110vh) translateX(80px) rotate(15deg); opacity: 0; }
         }
 
         .container {
@@ -65,7 +66,7 @@
             backdrop-filter: blur(15px);
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -93,7 +94,7 @@
         h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
         .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
-        .heart { display: inline-block; color: #e91e63; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
+        .heart { display: inline-block; color: #ff7043; animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
         @keyframes heartbeat { 
             0%, 30%, 60% { transform: scale(1); } 
             15% { transform: scale(1.2); } 
@@ -120,126 +121,16 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; }
+        .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: bold; }
         .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
-        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #e91e63, #fbc02d); transition: width 1s ease-out; }
+        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.08); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff7043, #ffd54f); transition: width 1s ease-out; }
 
         .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; }
-        .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 6px; font-weight: 400; }
-        .sleep-count { display: block; font-size: 1.1rem; color: #774d5e; margin-top: 8px; font-weight: bold; }
+        .sleep-count { display: block; font-size: 1.1rem; color: #ff7043; margin-top: 8px; font-weight: bold; }
+        .minutes-count { display: block; font-size: 1rem; color: var(--label-color); margin-top: 5px; font-weight: 400; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.5); transition: all 0.3s ease; }
-        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.8); border-color: var(--accent-pink); }
-        .event-date { display: block; font-size: 0.8rem; color: #888; margin-bottom: 5px; }
-        .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
-
-        @media (max-width: 900px) {
-            .number { font-size: 2.8rem; }
-            .countdown-wrapper { gap: 12px; }
-            .separator { font-size: 1.5rem; }
-            h1 { font-size: 1.6rem; }
-            .container { padding: 4rem 1.5rem; min-height: 60vh; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
-        
-        <div class="countdown-wrapper">
-            <div class="unit-group"><span class="number" id="days">00</span><span class="label">Tage</span></div>
-            <div class="separator">:</div>
-            <div class="unit-group"><span class="number" id="hours">00</span><span class="label">Std</span></div>
-            <div class="separator">:</div>
-            <div class="unit-group"><span class="number" id="mins">00</span><span class="label">Min</span></div>
-            <div class="separator">:</div>
-            <div class="unit-group"><span class="number" id="secs">00</span><span class="label">Sek</span></div>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-        </div>
-
-        <div class="weeks-display">
-            Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.
-            <span class="minutes-count">Das entspricht etwa <span id="minutes-total">0</span> Minuten. ⏳</span>
-            <span class="sleep-count">Nur noch <span id="sleep-total">0</span> Mal schlafen! 🌙</span>
-        </div>
-
-        <div class="events-title">Highlights 🗓️</div>
-        <div class="events-list">
-            <div class="event-card">
-                <span class="event-date">06. Juli</span>
-                <span class="event-name">Wiedersehen! 🥂</span>
-            </div>
-            <div class="event-card">
-                <span class="event-date">30. Juli</span>
-                <span class="event-name">The Weeknd Konzert 🎤</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.innerHTML = Math.random() > 0.5 ? '🌸' : '🌼';
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = Math.random() * 10 + 10 + 'px';
-            petal.style.animationDuration = Math.random() * 5 + 6 + 's';
-            petal.style.opacity = Math.random() * 0.6 + 0.3;
-            document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 11000);
-        }
-        setInterval(createPetal, 500);
-
-        const targetDate = new Date('July 06, 2026 18:15:00');
-        const startDate = new Date('May 17, 2026 00:00:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date();
-            const diff = targetDate.getTime() - now.getTime();
-
-            if (diff <= 0) {
-                document.querySelector('.container').innerHTML = "<h1>Endlich wieder vereint! <span class='heart'>❤️</span></h1>";
-                return;
-            }
-
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            
-            document.getElementById('days').innerText = d.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-            document.getElementById('mins').innerText = m.toString().padStart(2, '0');
-            document.getElementById('secs').innerText = s.toString().padStart(2, '0');
-
-            // Wochen
-            document.getElementById('weeks-count').innerText = (diff / 604800000).toFixed(1).replace('.', ',');
-
-            // Minuten-Logik (mit Tausender-Trennpunkt)
-            const totalMinutes = Math.floor(diff / 60000);
-            document.getElementById('minutes-total').innerText = totalMinutes.toLocaleString('de-DE');
-
-            // Schlafen-Logik
-            const targetDay = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-            let refDay = now.getDate();
-            if (now.getHours() < 3) refDay -= 1;
-            const referenceDate = new Date(now.getFullYear(), now.getMonth(), refDay);
-            document.getElementById('sleep-total').innerText = Math.max(0, Math.round((targetDay - referenceDate) / 86400000));
-
-            // Fortschrittsbalken
-            const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
-            document.getElementById('progress-bar').style.width = progress + '%';
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-    </script>
-</body>
-</html>
+        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8); transition: all 0.3s ease; }
+        .event-card:hover { transform: translateY
