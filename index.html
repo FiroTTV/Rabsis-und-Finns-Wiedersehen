@@ -6,25 +6,26 @@
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
         :root {
-            /* Sommerliches Babyhellblau */
+            /* Sommerliches Babyhellblau für den Hintergrund */
             --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
-            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(225, 245, 254, 0.7) 100%);
+            /* Ozeanblau für die Kachel, damit das Weiß gut lesbar ist */
+            --container-bg: linear-gradient(135deg, rgba(2, 119, 189, 0.75) 0%, rgba(1, 87, 155, 0.85) 100%);
             
-            /* Neue coole Schriftfarbe: Tiefes, edles Ozean-Navy */
-            --text-main: #0a2342; 
-            --text-sub: #1e3799;
+            /* Sanftes Weiß für die Hauptschrift */
+            --text-main: #f0f8ff; 
+            --text-sub: #e1f5fe;
             
             /* Akzente */
-            --accent-heart: #ff4757; /* Klares, sattes Rot-Pink fürs Herz */
-            --label-color: #0097e6; /* Strahlendes Teal/Blau für die Labels */
-            --separator-color: rgba(10, 35, 66, 0.15);
-            --shadow: rgba(1, 87, 155, 0.2);
-            --event-bg: rgba(255, 255, 255, 0.65);
-            --glint-color: rgba(255, 255, 255, 0.9);
+            --accent-heart: #ff4757; 
+            --label-color: #81d4fa; /* Helles Blau für Labels */
+            --separator-color: rgba(255, 255, 255, 0.2);
+            --shadow: rgba(1, 87, 155, 0.3);
+            --event-bg: rgba(255, 255, 255, 0.15);
+            --glint-color: rgba(255, 255, 255, 0.2);
             
-            /* Neuer "Tropical Sunset" Verlauf für die Zahlen */
-            --main-gradient: linear-gradient(120deg, #ff4757, #ffa502, #ff4757);
-            --progress-gradient: linear-gradient(90deg, #ff4757, #ffa502);
+            /* Cooler, blauer Verlauf für den Countdown */
+            --main-gradient: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
+            --progress-gradient: linear-gradient(90deg, #00f2fe, #4facfe);
         }
 
         body {
@@ -73,7 +74,7 @@
             backdrop-filter: blur(15px);
             z-index: 10;
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             overflow: hidden;
             transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
@@ -98,7 +99,7 @@
             100% { left: 150%; }
         }
 
-        h1 { color: var(--text-main); font-weight: 600; letter-spacing: 0.5px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
+        h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
         .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
         .heart { display: inline-block; color: var(--accent-heart); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
@@ -120,7 +121,7 @@
             animation: gradientMove 5s ease infinite;
             line-height: 1;
             background-image: var(--main-gradient);
-            text-shadow: 0px 4px 15px rgba(255, 71, 87, 0.2); /* Sanfter Glow-Effekt */
+            text-shadow: 0px 4px 15px rgba(0, 242, 254, 0.3); /* Sanfter blauer Glow-Effekt */
         }
 
         @keyframes gradientMove {
@@ -129,20 +130,20 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label { font-size: 0.85rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: 700; }
+        .label { font-size: 0.85rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: 600; }
         .separator { font-size: 3.5rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
-        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.5); }
-        .progress-bar { height: 100%; width: 0%; background: var(--progress-gradient); box-shadow: 0 0 10px rgba(255, 165, 2, 0.5); transition: width 1s ease-out; }
+        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+        .progress-bar { height: 100%; width: 0%; background: var(--progress-gradient); box-shadow: 0 0 10px rgba(0, 242, 254, 0.5); transition: width 1s ease-out; }
 
-        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 400; display: flex; flex-direction: column; align-items: center; }
-        .minutes-count { display: block; font-size: 1rem; color: var(--text-sub); margin-top: 6px; font-weight: 500; }
-        .sleep-count { display: block; font-size: 1.15rem; color: var(--accent-heart); margin-top: 8px; font-weight: bold; }
+        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; color: var(--text-main); font-weight: 300; display: flex; flex-direction: column; align-items: center; }
+        .minutes-count { display: block; font-size: 1rem; color: var(--text-sub); margin-top: 6px; font-weight: 400; }
+        .sleep-count { display: block; font-size: 1.15rem; color: var(--text-main); margin-top: 8px; font-weight: bold; }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; }
-        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.9); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .event-card:hover { transform: translateY(-5px); background: #ffffff; border-color: var(--accent-heart); box-shadow: 0 8px 25px rgba(255, 71, 87, 0.15); }
-        .event-date { display: block; font-size: 0.8rem; color: var(--label-color); margin-bottom: 5px; font-weight: 600; }
+        .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.25); border-color: var(--label-color); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2); }
+        .event-date { display: block; font-size: 0.8rem; color: var(--label-color); margin-bottom: 5px; font-weight: 500; }
         .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
 
         @media (max-width: 900px) {
