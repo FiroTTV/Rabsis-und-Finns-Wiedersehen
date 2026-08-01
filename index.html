@@ -197,9 +197,9 @@
         }
         setInterval(createUmbrella, 600);
 
-        // Zieldatum auf den 7. August 2026 um 18:00 Uhr geändert
         const targetDate = new Date('August 07, 2026 18:00:00');
-        const startDate = new Date('May 17, 2026 00:00:00').getTime();
+        // Startdatum für den Balken auf heute (01. August 2026) gesetzt
+        const startDate = new Date('August 01, 2026 00:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date();
