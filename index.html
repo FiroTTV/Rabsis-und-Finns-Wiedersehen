@@ -135,6 +135,10 @@
         .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 1); border-color: var(--accent-pink); }
         .event-date { display: block; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
         .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
+        
+        /* Neuer Style für vergangene Events */
+        .event-card.past { opacity: 0.65; background: rgba(255, 255, 255, 0.4); border-color: transparent; }
+        .event-card.past:hover { opacity: 1; border-color: var(--label-color); transform: translateY(-2px); }
 
         @media (max-width: 900px) {
             .number { font-size: 2.8rem; }
@@ -172,13 +176,19 @@
 
         <div class="events-title">Highlights 🗓️</div>
         <div class="events-list">
+            <!-- Vergangenes Event -->
+            <div class="event-card past">
+                <span class="event-date">30. Juli</span>
+                <span class="event-name">The Weeknd Konzert ✅</span>
+            </div>
+            <!-- Zukünftige Events -->
             <div class="event-card">
                 <span class="event-date">27. August</span>
                 <span class="event-name">Wiedersehen! 🥂</span>
             </div>
             <div class="event-card">
-                <span class="event-date">30. Juli</span>
-                <span class="event-name">The Weeknd Konzert 🎤</span>
+                <span class="event-date">29. August</span>
+                <span class="event-name">Pizzera & Jaus 🎸</span>
             </div>
         </div>
     </div>
@@ -197,9 +207,7 @@
         }
         setInterval(createUmbrella, 600);
 
-        // Zieldatum auf den 27. August 2026 um 20:00 Uhr geändert
         const targetDate = new Date('August 27, 2026 20:00:00');
-        // Startdatum für den Balken auf heute (12. August 2026) gesetzt
         const startDate = new Date('August 12, 2026 00:00:00').getTime();
 
         function updateCountdown() {
