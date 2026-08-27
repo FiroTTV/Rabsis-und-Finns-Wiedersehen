@@ -90,7 +90,7 @@
         }
 
         h1 { color: var(--text-main); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; }
-        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 40px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 
         .heart { display: inline-block; color: var(--accent-pink); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
         @keyframes heartbeat { 
@@ -126,7 +126,7 @@
         .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4081, #ffeb3b); transition: width 1s ease-out; }
 
         /* Anpassungen für die Stats */
-        .weeks-display { margin: 10px 0 40px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; }
+        .weeks-display { margin: 10px 0 30px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; }
         .stat-row { display: flex; justify-content: center; align-items: center; gap: 8px; }
         .minutes-count { font-size: 1rem; margin-top: 6px; font-weight: 400; }
         .sleep-count { font-size: 1.1rem; margin-top: 8px; font-weight: bold; }
@@ -137,24 +137,42 @@
             100% { background-position: -50% center; }
         }
 
-        /* Glow für den Haupttext (dunkles Blau zu hellem Eisblau) */
         .glow-main {
             background: linear-gradient(110deg, var(--text-main) 35%, #40c4ff 50%, var(--text-main) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* 8 Sekunden für ein langsames, entspanntes Schimmern */
             animation: textShine 8s linear infinite;
         }
 
-        /* Glow für die Labels (helleres Blau zu hellem Eisblau) */
         .glow-label {
             background: linear-gradient(110deg, var(--label-color) 35%, #81d4fa 50%, var(--label-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* 8 Sekunden für ein langsames, entspanntes Schimmern */
             animation: textShine 8s linear infinite;
+        }
+
+        /* Jubiläums-Box */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 64, 129, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.2); }
+        }
+
+        .anniversary-message {
+            display: none;
+            margin: 0 auto 25px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.9));
+            border: 2px solid var(--accent-pink);
+            border-radius: 20px;
+            color: var(--accent-pink);
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: pulseGlow 3s infinite;
+            text-align: center;
+            max-width: 80%;
         }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; }
@@ -208,6 +226,9 @@
                 <span class="glow-label" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
             </span>
         </div>
+
+        <!-- Versteckte Box für besondere Tage (Jahrestag / Halbjähriges) -->
+        <div id="anniversary-message" class="anniversary-message"></div>
 
         <div class="events-title">Highlights 🗓️</div>
         <div class="events-list">
@@ -289,6 +310,24 @@
             // Fortschrittsbalken
             const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
             document.getElementById('progress-bar').style.width = progress + '%';
+
+            // Jahrestag / Halbjähriges Check
+            const currentMonth = now.getMonth(); // 0-basiert: 2 = März, 8 = September
+            const currentDay = now.getDate();
+            const messageBox = document.getElementById('anniversary-message');
+            
+            if (currentMonth === 2 && currentDay === 28) {
+                const years = now.getFullYear() - 2026;
+                if (years > 0) {
+                    messageBox.innerHTML = `🎉 Alles Gute zum ${years}. Jahrestag! ❤️`;
+                    messageBox.style.display = 'block';
+                }
+            } else if (currentMonth === 8 && currentDay === 28) {
+                messageBox.innerHTML = "✨ Alles Gute zum Halbjährigen! 🥰";
+                messageBox.style.display = 'block';
+            } else {
+                messageBox.style.display = 'none';
+            }
         }
 
         setInterval(updateCountdown, 1000);
