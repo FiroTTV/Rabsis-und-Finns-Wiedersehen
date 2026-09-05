@@ -6,16 +6,22 @@
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
-            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(179, 229, 252, 0.65) 100%);
-            --text-main: #01579b;
-            --accent-pink: #ff4081;
-            --label-color: #0277bd;
-            --separator-color: rgba(1, 87, 155, 0.2);
-            --shadow: rgba(1, 87, 155, 0.15);
-            --event-bg: rgba(255, 255, 255, 0.55);
+            /* Warmer Herbst-Hintergrund */
+            --bg-gradient: linear-gradient(135deg, #ffe0b2 0%, #ffb74d 100%);
+            /* Helle, leicht warme Kachel */
+            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 243, 224, 0.7) 100%);
+            /* Dunkles, gemütliches Braun für den Haupttext */
+            --text-main: #3e2723;
+            /* Rostrot/Orange für Akzente */
+            --accent-pink: #d84315;
+            /* Tiefes Herbstorange für Labels */
+            --label-color: #bf360c;
+            --separator-color: rgba(62, 39, 35, 0.2);
+            --shadow: rgba(62, 39, 35, 0.15);
+            --event-bg: rgba(255, 255, 255, 0.65);
             --glint-color: rgba(255, 255, 255, 0.8);
-            --main-gradient: linear-gradient(120deg, #ff4081, #ff9800, #ffeb3b, #ff4081);
+            /* Farbverlauf der Blätter für die Zahlen */
+            --main-gradient: linear-gradient(120deg, #d84315, #f57f17, #bf360c);
         }
 
         body {
@@ -32,21 +38,23 @@
             padding: 60px 0;
         }
 
-        .umbrella {
+        /* Neue fallende Blätter */
+        .leaf {
             position: absolute;
             top: -50px;
             pointer-events: none;
             z-index: 1;
             user-select: none;
-            animation: drift linear forwards;
+            animation: fall linear forwards;
             font-size: 1.5rem;
         }
 
-        @keyframes drift {
+        @keyframes fall {
             0% { transform: translateY(0) translateX(0) rotate(-15deg); opacity: 0; }
             10% { opacity: 0.9; }
+            50% { transform: translateY(55vh) translateX(60px) rotate(90deg); }
             90% { opacity: 0.9; }
-            100% { transform: translateY(110vh) translateX(80px) rotate(15deg); opacity: 0; }
+            100% { transform: translateY(110vh) translateX(-40px) rotate(180deg); opacity: 0; }
         }
 
         .container {
@@ -123,7 +131,7 @@
         .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
 
         .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.08); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4081, #ffeb3b); transition: width 1s ease-out; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #d84315, #f57f17); transition: width 1s ease-out; }
 
         .weeks-display { margin: 10px 0 30px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; }
         .stat-row { display: flex; justify-content: center; align-items: center; gap: 8px; }
@@ -135,8 +143,9 @@
             100% { background-position: -50% center; }
         }
 
+        /* Warmer Herbst-Glow (Braun zu hellem Orange) */
         .glow-main {
-            background: linear-gradient(110deg, var(--text-main) 35%, #40c4ff 50%, var(--text-main) 65%);
+            background: linear-gradient(110deg, var(--text-main) 35%, #ff8a65 50%, var(--text-main) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -144,7 +153,7 @@
         }
 
         .glow-label {
-            background: linear-gradient(110deg, var(--label-color) 35%, #81d4fa 50%, var(--label-color) 65%);
+            background: linear-gradient(110deg, var(--label-color) 35%, #ffb74d 50%, var(--label-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -152,9 +161,9 @@
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(255, 64, 129, 0.5); }
-            100% { box-shadow: 0 0 10px rgba(255, 64, 129, 0.2); }
+            0% { box-shadow: 0 0 10px rgba(216, 67, 21, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(216, 67, 21, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(216, 67, 21, 0.2); }
         }
 
         .anniversary-message {
@@ -244,18 +253,21 @@
     </div>
 
     <script>
-        function createUmbrella() {
-            const umbrella = document.createElement('div');
-            umbrella.innerHTML = '⛱️';
-            umbrella.className = 'umbrella';
-            umbrella.style.left = Math.random() * 100 + 'vw';
-            umbrella.style.fontSize = Math.random() * 15 + 20 + 'px';
-            umbrella.style.animationDuration = Math.random() * 5 + 6 + 's';
-            umbrella.style.opacity = Math.random() * 0.4 + 0.6;
-            document.body.appendChild(umbrella);
-            setTimeout(() => { umbrella.remove(); }, 11000);
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            // Verschiedene Herbstblätter zur Auswahl
+            const leaves = ['🍂', '🍁', '🍃'];
+            leaf.innerHTML = leaves[Math.floor(Math.random() * leaves.length)];
+            leaf.className = 'leaf';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.fontSize = Math.random() * 15 + 20 + 'px';
+            // Leicht angepasste Fallgeschwindigkeit
+            leaf.style.animationDuration = Math.random() * 5 + 7 + 's';
+            leaf.style.opacity = Math.random() * 0.4 + 0.6;
+            document.body.appendChild(leaf);
+            setTimeout(() => { leaf.remove(); }, 12000);
         }
-        setInterval(createUmbrella, 600);
+        setInterval(createLeaf, 600);
 
         const targetDate = new Date('October 24, 2026 17:00:00');
         const startDate = new Date('September 05, 2026 00:00:00').getTime();
