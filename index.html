@@ -10,7 +10,7 @@
             --bg-gradient: linear-gradient(135deg, #ffe0b2 0%, #ffb74d 100%);
             /* Helle, leicht warme Kachel */
             --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 243, 224, 0.7) 100%);
-            /* Knalliges Orange für die Überschrift */
+            /* Knalliges Orange für Überschrift und Wochen-Text */
             --heading-color: #ff5722;
             /* Dunkles, gemütliches Braun für den restlichen Text */
             --text-main: #3e2723;
@@ -22,7 +22,7 @@
             --shadow: rgba(62, 39, 35, 0.15);
             --event-bg: rgba(255, 255, 255, 0.65);
             --glint-color: rgba(255, 255, 255, 0.8);
-            /* Farbverlauf der Blätter für die Zahlen */
+            /* Farbverlauf der Zahlen */
             --main-gradient: linear-gradient(120deg, #d84315, #f57f17, #bf360c);
         }
 
@@ -145,14 +145,16 @@
             100% { background-position: -50% center; }
         }
 
+        /* Wochen-Glow jetzt auf Basis des knalligen Oranges (--heading-color) */
         .glow-main {
-            background: linear-gradient(110deg, var(--text-main) 35%, #ff8a65 50%, var(--text-main) 65%);
+            background: linear-gradient(110deg, var(--heading-color) 35%, #ffd180 50%, var(--heading-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: textShine 8s linear infinite;
         }
 
+        /* Label-Glow bleibt auf dem tieferen Herbstorange (--label-color) */
         .glow-label {
             background: linear-gradient(110deg, var(--label-color) 35%, #ffb74d 50%, var(--label-color) 65%);
             background-size: 200% auto;
