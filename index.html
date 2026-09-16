@@ -5,25 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rabsi's & Finn's Wiedersehen ❤️</title>
     <style>
-        :root {
-            /* Warmer Herbst-Hintergrund */
+        /* =========================================
+           STANDARD: HERBST-DESIGN (Default)
+           ========================================= */
+        :root, [data-theme="autumn"] {
             --bg-gradient: linear-gradient(135deg, #ffe0b2 0%, #ffb74d 100%);
-            /* Helle, leicht warme Kachel */
             --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 243, 224, 0.7) 100%);
-            /* Knalliges Orange für Überschrift und Wochen-Text */
             --heading-color: #ff5722;
-            /* Dunkles, gemütliches Braun für den restlichen Text */
             --text-main: #3e2723;
-            /* Rostrot/Orange für Akzente */
             --accent-pink: #d84315;
-            /* Tiefes Herbstorange für Labels */
             --label-color: #bf360c;
             --separator-color: rgba(62, 39, 35, 0.2);
             --shadow: rgba(62, 39, 35, 0.15);
             --event-bg: rgba(255, 255, 255, 0.65);
             --glint-color: rgba(255, 255, 255, 0.8);
-            /* Farbverlauf der Zahlen */
             --main-gradient: linear-gradient(120deg, #d84315, #f57f17, #bf360c);
+            
+            /* Glow Variablen */
+            --glow-main-mid: #ffd180;
+            --glow-label-mid: #ffb74d;
+            
+            /* Schatten Variablen */
+            --h1-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+            --number-filter: none;
+            --event-border-hover: var(--accent-pink);
+        }
+
+        /* =========================================
+           DESIGN 2: SOMMER (TROPICAL)
+           ========================================= */
+        [data-theme="summer-tropical"] {
+            --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
+            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(225, 245, 254, 0.7) 100%);
+            --heading-color: #0a2342;
+            --text-main: #0a2342;
+            --accent-pink: #ff4757;
+            --label-color: #0097e6;
+            --separator-color: rgba(10, 35, 66, 0.15);
+            --shadow: rgba(1, 87, 155, 0.2);
+            --event-bg: rgba(255, 255, 255, 0.65);
+            --glint-color: rgba(255, 255, 255, 0.9);
+            --main-gradient: linear-gradient(120deg, #ff4757, #ffa502, #ff4757);
+            
+            --glow-main-mid: #40c4ff;
+            --glow-label-mid: #81d4fa;
+            
+            --h1-shadow: none;
+            --number-filter: drop-shadow(0px 4px 15px rgba(255, 71, 87, 0.2));
+            --event-border-hover: var(--accent-pink);
+        }
+
+        /* =========================================
+           DESIGN 3: SOMMER (OZEAN / EISBLAU)
+           ========================================= */
+        [data-theme="summer-ocean"] {
+            --bg-gradient: linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%);
+            --container-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(179, 229, 252, 0.4) 100%);
+            --heading-color: #ffffff;
+            --text-main: #ffffff;
+            --accent-pink: #ff4757;
+            --label-color: #ffffff;
+            --separator-color: rgba(255, 255, 255, 0.7);
+            --shadow: rgba(1, 87, 155, 0.15);
+            --event-bg: rgba(255, 255, 255, 0.3);
+            --glint-color: rgba(255, 255, 255, 0.8);
+            --main-gradient: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
+            
+            --glow-main-mid: #81d4fa;
+            --glow-label-mid: #e1f5fe;
+            
+            --h1-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+            --number-filter: drop-shadow(0px 4px 10px rgba(0, 242, 254, 0.4));
+            --event-border-hover: #00f2fe;
         }
 
         body {
@@ -38,18 +91,50 @@
             position: relative;
             color: #333;
             padding: 60px 0;
+            transition: background 0.8s ease;
         }
 
-        /* Nur noch herbstliche Blätter (ohne die grünen) */
-        .leaf {
+        /* --- THEME SWITCHER UI --- */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .theme-switcher:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .theme-switcher select {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- FALLING ITEMS --- */
+        .falling-item {
             position: absolute;
             top: -50px;
             pointer-events: none;
             z-index: 1;
             user-select: none;
-            animation: fall linear forwards;
-            font-size: 1.5rem;
         }
+        .anim-leaf { animation: fall linear forwards; }
+        .anim-umbrella { animation: drift linear forwards; }
 
         @keyframes fall {
             0% { transform: translateY(0) translateX(0) rotate(-15deg); opacity: 0; }
@@ -57,6 +142,12 @@
             50% { transform: translateY(55vh) translateX(60px) rotate(90deg); }
             90% { opacity: 0.9; }
             100% { transform: translateY(110vh) translateX(-40px) rotate(180deg); opacity: 0; }
+        }
+        @keyframes drift {
+            0% { transform: translateY(0) translateX(0) rotate(-15deg); opacity: 0; }
+            10% { opacity: 0.9; }
+            90% { opacity: 0.9; }
+            100% { transform: translateY(110vh) translateX(80px) rotate(15deg); opacity: 0; }
         }
 
         .container {
@@ -76,7 +167,7 @@
             position: relative;
             border: 1px solid rgba(255, 255, 255, 0.6);
             overflow: hidden;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .container:hover { transform: translateY(-8px); }
@@ -99,10 +190,10 @@
             100% { left: 150%; }
         }
 
-        h1 { color: var(--heading-color); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; text-shadow: 0px 2px 4px rgba(0,0,0,0.05); }
-        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        h1 { color: var(--heading-color); font-weight: 500; letter-spacing: 1px; font-size: 2.2rem; margin-bottom: 2.5rem; margin-top: 0; text-shadow: var(--h1-shadow); transition: color 0.5s; }
+        .events-title { font-size: 1.1rem; color: var(--text-main); margin: 30px 0 15px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; transition: color 0.5s; }
 
-        .heart { display: inline-block; color: var(--accent-pink); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; }
+        .heart { display: inline-block; color: var(--accent-pink); animation: heartbeat 1.5s ease-in-out infinite; font-size: 2.5rem; vertical-align: middle; transition: color 0.5s; }
         @keyframes heartbeat { 
             0%, 30%, 60% { transform: scale(1); } 
             15% { transform: scale(1.2); } 
@@ -121,6 +212,8 @@
             animation: gradientMove 5s ease infinite;
             line-height: 1;
             background-image: var(--main-gradient);
+            filter: var(--number-filter);
+            transition: all 0.5s;
         }
 
         @keyframes gradientMove {
@@ -129,34 +222,33 @@
             100% { background-position: 0% 50%; }
         }
 
-        .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: bold; }
-        .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; }
+        .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: bold; text-shadow: var(--h1-shadow); transition: color 0.5s; }
+        .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; text-shadow: var(--h1-shadow); transition: color 0.5s; }
 
         .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.08); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #d84315, #f57f17); transition: width 1s ease-out; }
+        .progress-bar { height: 100%; width: 0%; background: var(--main-gradient); background-size: 200% 200%; transition: width 1s ease-out, background 0.5s; }
 
-        .weeks-display { margin: 10px 0 30px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; }
+        .weeks-display { margin: 10px 0 30px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; transition: border-color 0.5s; }
         .stat-row { display: flex; justify-content: center; align-items: center; gap: 8px; }
         .minutes-count { font-size: 1rem; margin-top: 6px; font-weight: 400; }
         .sleep-count { font-size: 1.1rem; margin-top: 8px; font-weight: bold; }
+        .rank-count { font-size: 1rem; margin-top: 8px; font-weight: 500; }
 
         @keyframes textShine {
             0% { background-position: 150% center; }
             100% { background-position: -50% center; }
         }
 
-        /* Wochen-Glow jetzt auf Basis des knalligen Oranges (--heading-color) */
         .glow-main {
-            background: linear-gradient(110deg, var(--heading-color) 35%, #ffd180 50%, var(--heading-color) 65%);
+            background: linear-gradient(110deg, var(--heading-color) 35%, var(--glow-main-mid) 50%, var(--heading-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: textShine 8s linear infinite;
         }
 
-        /* Label-Glow bleibt auf dem tieferen Herbstorange (--label-color) */
         .glow-label {
-            background: linear-gradient(110deg, var(--label-color) 35%, #ffb74d 50%, var(--label-color) 65%);
+            background: linear-gradient(110deg, var(--label-color) 35%, var(--glow-label-mid) 50%, var(--label-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -164,9 +256,9 @@
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(216, 67, 21, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(216, 67, 21, 0.5); }
-            100% { box-shadow: 0 0 10px rgba(216, 67, 21, 0.2); }
+            0% { box-shadow: 0 0 10px rgba(128, 128, 128, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(128, 128, 128, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(128, 128, 128, 0.2); }
         }
 
         .anniversary-message {
@@ -182,13 +274,14 @@
             animation: pulseGlow 3s infinite;
             text-align: center;
             max-width: 80%;
+            transition: all 0.5s;
         }
 
         .events-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; width: 100%; }
         .event-card { background: var(--event-bg); padding: 15px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.8); transition: all 0.3s ease; }
-        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 1); border-color: var(--accent-pink); }
-        .event-date { display: block; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
-        .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; }
+        .event-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 1); border-color: var(--event-border-hover); }
+        .event-date { display: block; font-size: 0.8rem; color: var(--label-color); margin-bottom: 5px; font-weight: 500; transition: color 0.5s; }
+        .event-name { display: block; font-size: 1rem; color: var(--text-main); font-weight: bold; transition: color 0.5s; }
         
         .event-card.past { opacity: 0.65; background: rgba(255, 255, 255, 0.4); border-color: transparent; }
         .event-card.past:hover { opacity: 1; border-color: var(--label-color); transform: translateY(-2px); }
@@ -202,7 +295,16 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="autumn">
+
+    <div class="theme-switcher">
+        <span>🎨</span>
+        <select id="themeSelect" onchange="changeTheme(this.value)">
+            <option value="autumn">Herbst Design</option>
+            <option value="summer-tropical">Sommer (Tropical)</option>
+            <option value="summer-ocean">Sommer (Ozean)</option>
+        </select>
+    </div>
 
     <div class="container">
         <h1>Wiedersehen von Rabsi und Finn <span class="heart">❤️</span></h1>
@@ -234,6 +336,9 @@
             <span class="stat-row sleep-count">
                 <span class="glow-label" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
             </span>
+            <span class="stat-row rank-count">
+                <span class="glow-label" style="animation-delay: 4.5s;" id="wait-rank">Lade Statistik...</span> 🏆
+            </span>
         </div>
 
         <div id="anniversary-message" class="anniversary-message"></div>
@@ -256,24 +361,59 @@
     </div>
 
     <script>
-        function createLeaf() {
-            const leaf = document.createElement('div');
-            // Nur noch herbstliche Blätter (grünes Blatt entfernt)
-            const leaves = ['🍂', '🍁'];
-            leaf.innerHTML = leaves[Math.floor(Math.random() * leaves.length)];
-            leaf.className = 'leaf';
-            leaf.style.left = Math.random() * 100 + 'vw';
-            leaf.style.fontSize = Math.random() * 15 + 20 + 'px';
-            leaf.style.animationDuration = Math.random() * 5 + 7 + 's';
-            leaf.style.opacity = Math.random() * 0.4 + 0.6;
-            document.body.appendChild(leaf);
-            setTimeout(() => { leaf.remove(); }, 12000);
+        // Design Changer
+        function changeTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
         }
-        setInterval(createLeaf, 600);
+
+        // Fallende Items je nach Theme anpassen
+        function createFallingItem() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const item = document.createElement('div');
+            
+            if (currentTheme === 'autumn') {
+                const leaves = ['🍂', '🍁'];
+                item.innerHTML = leaves[Math.floor(Math.random() * leaves.length)];
+                item.className = 'falling-item anim-leaf';
+            } else {
+                item.innerHTML = '⛱️';
+                item.className = 'falling-item anim-umbrella';
+            }
+            
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = Math.random() * 15 + 20 + 'px';
+            item.style.animationDuration = Math.random() * 5 + 7 + 's';
+            item.style.opacity = Math.random() * 0.4 + 0.6;
+            document.body.appendChild(item);
+            setTimeout(() => { item.remove(); }, 12000);
+        }
+        setInterval(createFallingItem, 600);
 
         const targetDate = new Date('October 24, 2026 17:00:00');
         const startDate = new Date('September 05, 2026 00:00:00').getTime();
 
+        // Statistik Logik (Bitte echte Daten im Format YYYY-MM-DD anpassen!)
+        const pastMeetings = [
+            '2026-03-28',
+            '2026-07-06',
+            '2026-08-27'
+        ];
+        
+        const lastMeeting = new Date('2026-08-27T20:00:00'); 
+        const currentSpan = (targetDate - lastMeeting) / 86400000;
+
+        let spans = [currentSpan];
+        for(let i = 0; i < pastMeetings.length - 1; i++) {
+            let d1 = new Date(pastMeetings[i]);
+            let d2 = new Date(pastMeetings[i+1]);
+            spans.push((d2 - d1) / 86400000);
+        }
+
+        spans.sort((a, b) => b - a);
+        const rank = spans.indexOf(currentSpan) + 1;
+        document.getElementById('wait-rank').innerText = `Aktuell Platz ${rank} der längsten Wartezeiten`;
+
+        // Countdown & Stats Funktion
         function updateCountdown() {
             const now = new Date();
             const diff = targetDate.getTime() - now.getTime();
@@ -316,6 +456,7 @@
             const progress = Math.min(Math.max(((now.getTime() - startDate) / (targetDate.getTime() - startDate)) * 100, 0), 100);
             document.getElementById('progress-bar').style.width = progress + '%';
 
+            // Jahrestag / Halbjähriges Check
             const currentMonth = now.getMonth(); 
             const currentDay = now.getDate();
             const messageBox = document.getElementById('anniversary-message');
