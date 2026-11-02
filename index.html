@@ -27,7 +27,7 @@
             /* Purer Rot-Fade für den Timer und Ladebalken */
             --main-gradient: linear-gradient(120deg, #ff1744, #ff7373, #ff1744); 
             
-            /* Roter Text mit GRÜNEM Glow für die Highlights (Wochen & Schlafen) */
+            /* Roter Text mit GRÜNEM Glow für alle Highlights (Wochen, Minuten, Schlafen, Rank) */
             --glow-base-color: #ff4d4d; /* Rote Basis */
             --glow-shine-color: #4ade80; /* Grüner Glow */
             
@@ -367,14 +367,15 @@
                 <span class="glow-main">Das entspricht noch etwa <span id="weeks-count">0</span> Wochen.</span>
             </span>
             <span class="stat-row minutes-count">
-                <span class="glow-label" style="animation-delay: 1.5s;">Das entspricht etwa <span id="minutes-total">0</span> Minuten.</span> ⏳
+                <!-- Minuten nutzen nun auch das glow-main Design -->
+                <span class="glow-main" style="animation-delay: 1.5s;">Das entspricht etwa <span id="minutes-total">0</span> Minuten.</span> ⏳
             </span>
             <span class="stat-row sleep-count">
-                <!-- Nächte hat jetzt auch das glow-main Design (Roter Text, Grüner Glow) -->
                 <span class="glow-main" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
             </span>
             <span class="stat-row rank-count">
-                <span class="glow-label" style="animation-delay: 4.5s;" id="wait-rank">Lade Statistik...</span> 🏆
+                <!-- Rank nutzt nun auch das glow-main Design -->
+                <span class="glow-main" style="animation-delay: 4.5s;" id="wait-rank">Lade Statistik...</span> 🏆
             </span>
         </div>
 
