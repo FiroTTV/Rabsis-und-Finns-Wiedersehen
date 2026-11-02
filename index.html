@@ -14,7 +14,7 @@
             /* Tiefes, dunkles Tannengrün für die Kachel */
             --container-bg: linear-gradient(135deg, rgba(6, 78, 59, 0.95) 0%, rgba(2, 44, 34, 0.9) 100%);
             
-            /* Leuchtendes Rot für die Schrift */
+            /* Leuchtendes Rot für die normale Schrift */
             --heading-color: #ff4d4d; 
             --text-main: #ff4d4d; 
             --accent-pink: #ff4d4d;
@@ -27,9 +27,11 @@
             /* Purer Rot-Fade für den Timer und Ladebalken */
             --main-gradient: linear-gradient(120deg, #ff1744, #ff7373, #ff1744); 
             
-            /* Heller Rot-Ton für den Shine-Effekt der Haupttexte */
-            --glow-main-mid: #ffb3b3;
-            --glow-label-mid: #ffffff;
+            /* Roter Text mit GRÜNEM Glow für die Highlights (Wochen & Schlafen) */
+            --glow-base-color: #ff4d4d; /* Rote Basis */
+            --glow-shine-color: #4ade80; /* Grüner Glow */
+            
+            --glow-label-mid: #ffffff; /* Für andere kleine Texte */
             
             --h1-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
             --number-filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.4));
@@ -52,7 +54,8 @@
             --glint-color: rgba(255, 255, 255, 0.8);
             --main-gradient: linear-gradient(120deg, #d84315, #f57f17, #bf360c);
             
-            --glow-main-mid: #ffd180;
+            --glow-base-color: #ff5722;
+            --glow-shine-color: #ffd180;
             --glow-label-mid: #ffb74d;
             
             --h1-shadow: 0px 2px 4px rgba(0,0,0,0.05);
@@ -76,7 +79,8 @@
             --glint-color: rgba(255, 255, 255, 0.9);
             --main-gradient: linear-gradient(120deg, #ff4757, #ffa502, #ff4757);
             
-            --glow-main-mid: #40c4ff;
+            --glow-base-color: #0a2342;
+            --glow-shine-color: #40c4ff;
             --glow-label-mid: #81d4fa;
             
             --h1-shadow: none;
@@ -100,7 +104,8 @@
             --glint-color: rgba(255, 255, 255, 0.8);
             --main-gradient: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
             
-            --glow-main-mid: #81d4fa;
+            --glow-base-color: #ffffff;
+            --glow-shine-color: #81d4fa;
             --glow-label-mid: #e1f5fe;
             
             --h1-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
@@ -268,8 +273,9 @@
             100% { background-position: -50% center; }
         }
 
+        /* Das Rote Design mit grünem Glow */
         .glow-main {
-            background: linear-gradient(110deg, var(--heading-color) 35%, var(--glow-main-mid) 50%, var(--heading-color) 65%);
+            background: linear-gradient(110deg, var(--glow-base-color) 35%, var(--glow-shine-color) 50%, var(--glow-base-color) 65%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -364,7 +370,7 @@
                 <span class="glow-label" style="animation-delay: 1.5s;">Das entspricht etwa <span id="minutes-total">0</span> Minuten.</span> ⏳
             </span>
             <span class="stat-row sleep-count">
-                <!-- Nächte hat jetzt auch das glow-main Design -->
+                <!-- Nächte hat jetzt auch das glow-main Design (Roter Text, Grüner Glow) -->
                 <span class="glow-main" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
             </span>
             <span class="stat-row rank-count">
