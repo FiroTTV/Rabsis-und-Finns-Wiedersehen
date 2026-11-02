@@ -18,15 +18,17 @@
             --heading-color: #ff4d4d; 
             --text-main: #ff4d4d; 
             --accent-pink: #ff4d4d;
-            --label-color: #fca5a5; /* Ein Tick helleres Rot für kleine Labels */
+            --label-color: #fca5a5; 
             --separator-color: rgba(255, 77, 77, 0.4);
             --shadow: rgba(0, 0, 0, 0.6);
             --event-bg: rgba(255, 255, 255, 0.1); 
             --glint-color: rgba(255, 255, 255, 0.15);
-            /* Rot-Grün Fade für den Timer */
-            --main-gradient: linear-gradient(120deg, #ff1744, #00e676, #ff1744); 
             
-            --glow-main-mid: #00e676;
+            /* Purer Rot-Fade für den Timer und Ladebalken */
+            --main-gradient: linear-gradient(120deg, #ff1744, #ff7373, #ff1744); 
+            
+            /* Heller Rot-Ton für den Shine-Effekt der Haupttexte */
+            --glow-main-mid: #ffb3b3;
             --glow-label-mid: #ffffff;
             
             --h1-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
@@ -362,7 +364,8 @@
                 <span class="glow-label" style="animation-delay: 1.5s;">Das entspricht etwa <span id="minutes-total">0</span> Minuten.</span> ⏳
             </span>
             <span class="stat-row sleep-count">
-                <span class="glow-label" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
+                <!-- Nächte hat jetzt auch das glow-main Design -->
+                <span class="glow-main" style="animation-delay: 3s;">Nur noch <span id="sleep-total">0</span> Mal schlafen!</span> 🌙
             </span>
             <span class="stat-row rank-count">
                 <span class="glow-label" style="animation-delay: 4.5s;" id="wait-rank">Lade Statistik...</span> 🏆
