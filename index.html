@@ -8,7 +8,7 @@
     <link rel="icon" href="https://emojicdn.elk.sh/🎄">
     <style>
         /* =========================================
-           DESIGN 1: WEIHNACHTEN (Grün & Rot)
+           DESIGN 1: WEIHNACHTEN (Grün & Rot + Zuckerstangen-Bar)
            ========================================= */
         :root, [data-theme="christmas"] {
             /* Ein dunkleres, edleres Waldgrün für den Hintergrund */
@@ -26,8 +26,17 @@
             --event-bg: rgba(255, 255, 255, 0.1); 
             --glint-color: rgba(255, 255, 255, 0.15);
             
-            /* Purer Rot-Fade für den Timer und Ladebalken */
+            /* Purer Rot-Fade für den Timer */
             --main-gradient: linear-gradient(120deg, #ff1744, #ff7373, #ff1744); 
+
+            /* Zuckerstangen-Muster für die Fortschrittsleiste (Rot-Weiß gesterift mit Animation) */
+            --progress-gradient: repeating-linear-gradient(
+                45deg,
+                #ff1744,
+                #ff1744 15px,
+                #ffffff 15px,
+                #ffffff 30px
+            );
             
             /* Roter Text mit GRÜNEM Glow für alle Highlights (Wochen, Minuten, Schlafen, Rank) */
             --glow-base-color: #ff4d4d; /* Rote Basis */
@@ -55,6 +64,7 @@
             --event-bg: rgba(255, 255, 255, 0.65);
             --glint-color: rgba(255, 255, 255, 0.8);
             --main-gradient: linear-gradient(120deg, #d84315, #f57f17, #bf360c);
+            --progress-gradient: var(--main-gradient);
             
             --glow-base-color: #ff5722;
             --glow-shine-color: #ffd180;
@@ -80,6 +90,7 @@
             --event-bg: rgba(255, 255, 255, 0.65);
             --glint-color: rgba(255, 255, 255, 0.9);
             --main-gradient: linear-gradient(120deg, #ff4757, #ffa502, #ff4757);
+            --progress-gradient: var(--main-gradient);
             
             --glow-base-color: #0a2342;
             --glow-shine-color: #40c4ff;
@@ -105,6 +116,7 @@
             --event-bg: rgba(255, 255, 255, 0.3);
             --glint-color: rgba(255, 255, 255, 0.8);
             --main-gradient: linear-gradient(120deg, #00f2fe, #4facfe, #00f2fe);
+            --progress-gradient: var(--main-gradient);
             
             --glow-base-color: #ffffff;
             --glow-shine-color: #81d4fa;
@@ -261,8 +273,21 @@
         .label { font-size: 0.8rem; color: var(--label-color); text-transform: uppercase; letter-spacing: 2px; margin-top: 8px; font-weight: bold; text-shadow: var(--h1-shadow); transition: color 0.5s; }
         .separator { font-size: 3rem; color: var(--separator-color); font-weight: 200; margin-bottom: 25px; text-shadow: var(--h1-shadow); transition: color 0.5s; }
 
-        .progress-container { width: 80%; max-width: 600px; height: 12px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: var(--main-gradient); background-size: 200% 200%; transition: width 1s ease-out, background 0.5s; }
+        /* Fortschrittsleiste im Zuckerstangen-Look */
+        .progress-container { width: 80%; max-width: 600px; height: 14px; background: rgba(0, 0, 0, 0.4); border-radius: 10px; margin: 30px auto 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+        .progress-bar { 
+            height: 100%; 
+            width: 0%; 
+            background: var(--progress-gradient); 
+            background-size: 40px 40px;
+            animation: candyStripe 2s linear infinite;
+            transition: width 1s ease-out; 
+        }
+
+        @keyframes candyStripe {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 0; }
+        }
 
         .weeks-display { margin: 10px 0 30px; padding-bottom: 25px; border-bottom: 1px solid var(--separator-color); font-size: 1.3rem; font-weight: 300; display: flex; flex-direction: column; align-items: center; transition: border-color 0.5s; }
         .stat-row { display: flex; justify-content: center; align-items: center; gap: 8px; color: var(--text-main); transition: color 0.5s; }
@@ -428,7 +453,6 @@
         }
         setInterval(createFallingItem, 600);
 
-        /* Zieldatum auf den 14. November 2026 um 20:30 Uhr gesetzt */
         const targetDate = new Date('November 14, 2026 20:30:00');
         const startDate = new Date('November 01, 2026 00:00:00').getTime();
 
